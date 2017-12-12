@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -6,8 +7,11 @@ import io.reactivex.subjects.Subject;
 public class DecisionMaker {
 
   private static DecisionMaker decisionMaker;
+  private final Map<String, String> position;
 
-  private DecisionMaker() {}
+  private DecisionMaker() {
+    position = new HashMap<>();
+  }
 
   public static final DecisionMaker getInstance() {
     if (decisionMaker == null) decisionMaker = new DecisionMaker();
@@ -46,7 +50,8 @@ public class DecisionMaker {
                                       new Pair<Pair<Double, Double>, Pair<Double, Double>>(i1, i2))
                               .subscribe(
                                   l -> {
-                                    if (getResult(l.getKey(), l.getValue()) == 1)
+                                    if (getResult(l.getKey(), l.getValue()) == 1
+                                        && !position.getOrDefault(k.getKey(), "").equals("BUY"))
                                       ApplicationController.getInstance()
                                           .getQuery()
                                           .add(
@@ -56,7 +61,8 @@ public class DecisionMaker {
                                                   new Pair<String, String>(
                                                       k.getKey(),
                                                       l.getValue().getValue().toString())));
-                                    else if (getResult(l.getKey(), l.getValue()) == -1)
+                                    else if (getResult(l.getKey(), l.getValue()) == -1
+                                        && !position.getOrDefault(k.getKey(), "").equals("SELL"))
                                       ApplicationController.getInstance()
                                           .getQuery()
                                           .add(
@@ -80,5 +86,9 @@ public class DecisionMaker {
     return ((int) Math.signum(smaSlow0 - smaFast0) == (int) Math.signum(smaSlow1 - smaFast1))
         ? 0
         : (int) Math.signum(smaFast0 - smaSlow0);
+  }
+
+  public Map<String, String> getPosition() {
+    return position;
   }
 }

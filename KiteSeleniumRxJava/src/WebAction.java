@@ -153,6 +153,11 @@ public class WebAction {
     findElementByCSS("input[name=\"answer2\"]").sendKeys("amit");
     findElementByCSS("form#twofaform button[type=\"submit\"]").click();
   }
+  
+  public void readPostion() {
+	  findElementByCSS("header#header div > nav > ul > li:nth-child(4) > a").click();
+	  //TODO read position
+  }
 
   private final WebElement findElementByCSS(String element) {
     return (new WebDriverWait(driver, 10))

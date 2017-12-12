@@ -1,5 +1,8 @@
+import java.time.LocalTime;
 import java.util.Comparator;
 import java.util.concurrent.PriorityBlockingQueue;
+
+import org.openqa.selenium.support.ui.Sleeper;
 
 import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.Subject;
@@ -23,51 +26,87 @@ public class ApplicationController {
 
   public static void main(String[] args) {
     ApplicationController controller = ApplicationController.getInstance();
-    WebAction.getInstance().login();
+    if (isMarketOpen() == 1) {
+      WebAction.getInstance().login();
 
-    new Thread(
-            () -> {
-              for (int i = 2; i <= 6; i++) {
-                controller.query.add(new StockMessage(Integer.MIN_VALUE, "ClickMarketWatch", new Pair<String,String>("",""+i)));
-                controller.query.add(new StockMessage(Integer.MIN_VALUE, "ReadStockValue", null));
-                WebAction.sleep(100);
-              }
-            })
-        .start();
+      new Thread(
+              () -> {
+                while (true) {
+                  for (int i = 2; i <= 6; i++) {
+                    controller.query.add(
+                        new StockMessage(
+                            Integer.MIN_VALUE,
+                            "ClickMarketWatch",
+                            new Pair<String, String>("", "" + i)));
+                    controller.query.add(
+                        new StockMessage(Integer.MIN_VALUE, "ReadStockValue", null));
+                    WebAction.sleep(100);
+                  }
+                }
+              })
+          .start();
 
-    new Thread(
-            () -> {
-              StockMessage message = controller.query.poll();
-              switch (message.getMessage()) {
-                case "ClickMarketWatch":
-                  WebAction.getInstance().clickMarketWatch(message.getPair().getValue());
-                  break;
-                case "ReadStockValue":
-                  WebAction.getInstance().readStockPrice();
-                  break;
-                case "BUY":
-                  String buyPrice = message.getPair().getValue();
-                  String buyName = message.getPair().getKey();
-                  String i = StockLocation.getPosition(buyName);
-                  String buyTarget = controller.getTarget(buyPrice);
-                  String buyStopLoss = controller.getStopLoss(buyPrice);
-                  WebAction.getInstance().clickMarketWatch(StockLocation.getMarketWatch(buyName));
-                  WebAction.getInstance()
-                      .buySellBO(i, "1", buyPrice, buyTarget, buyStopLoss, "1", true);
-                  break;
-                case "SELL":
-                  String sellPrice = message.getPair().getValue();
-                  String sellName = message.getPair().getKey();
-                  String j = StockLocation.getPosition(sellName);
-                  String sellTarget = controller.getTarget(sellPrice);
-                  String sellStopLoss = controller.getStopLoss(sellPrice);
-                  WebAction.getInstance().clickMarketWatch(StockLocation.getMarketWatch(sellName));
-                  WebAction.getInstance()
-                      .buySellBO(j, "1", sellPrice, sellTarget, sellStopLoss, "1", false);
-                  break;
-              }
-            })
-        .start();
+      new Thread(
+              () -> {
+                while (true) {
+                  StockMessage message = controller.query.poll();
+                  switch (message.getMessage()) {
+                    case "ClickMarketWatch":
+                      WebAction.getInstance().clickMarketWatch(message.getPair().getValue());
+                      break;
+                    case "ReadStockValue":
+                      WebAction.getInstance().readStockPrice();
+                      break;
+                    case "BUY":
+                      String buyPrice = message.getPair().getValue();
+                      String buyName = message.getPair().getKey();
+                      String i = StockLocation.getPosition(buyName);
+                      String buyTarget = controller.getTarget(buyPrice);
+                      String buyStopLoss = controller.getStopLoss(buyPrice);
+                      WebAction.getInstance()
+                          .clickMarketWatch(StockLocation.getMarketWatch(buyName));
+                      WebAction.getInstance()
+                          .buySellBO(i, "1", buyPrice, buyTarget, buyStopLoss, "1", true);
+                      DecisionMaker.getInstance().getPosition().put(buyName, "BUY");
+                      break;
+                    case "SELL":
+                      String sellPrice = message.getPair().getValue();
+                      String sellName = message.getPair().getKey();
+                      String j = StockLocation.getPosition(sellName);
+                      String sellTarget = controller.getTarget(sellPrice);
+                      String sellStopLoss = controller.getStopLoss(sellPrice);
+                      WebAction.getInstance()
+                          .clickMarketWatch(StockLocation.getMarketWatch(sellName));
+                      WebAction.getInstance()
+                          .buySellBO(j, "1", sellPrice, sellTarget, sellStopLoss, "1", false);
+                      DecisionMaker.getInstance().getPosition().put(sellName, "SELL");
+                      break;
+                  }
+                  // WebAction.sleep(100);
+                }
+              })
+          .start();
+
+      new Thread(
+              () -> {
+                while (true) {
+                  WebAction.getInstance().readPostion();
+                  WebAction.sleep(1000 * 60 * 30);
+                }
+              })
+          .start();
+    }
+    while (true)
+      if (isMarketOpen() == 1) WebAction.sleep(1000 * 60 * 5);
+      else {
+        WebAction.getInstance().logout();
+        System.exit(0);
+      }
+  }
+
+  private static int isMarketOpen() {
+    return LocalTime.of(15, 15).compareTo(LocalTime.now())
+        * LocalTime.now().compareTo(LocalTime.of(9, 15));
   }
 
   private String getTarget(String price) {

@@ -2,22 +2,21 @@ package com;
 
 import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.PriorityBlockingQueue;
 
 import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.Subject;
 
 public class EventExecutor {
   private static EventExecutor eventExecutor;
-  //private final PriorityBlockingQueue<StockMessage> queue;
-  private final LinkedBlockingQueue<StockMessage> queue;
+  private final PriorityBlockingQueue<StockMessage> queue;
   private final Subject<Pair<String, String>> result;
 
   private static final double target = 0.01;
   private static final double stopLoss = 0.005;
 
   private EventExecutor() {
-   // queue = new PriorityBlockingQueue<>(10, new StockMessageComparator());
-	  queue = new LinkedBlockingQueue<>(1000);
+   queue = new PriorityBlockingQueue<>(10, new StockMessageComparator());
     result = BehaviorSubject.create();
   }
 
@@ -92,7 +91,7 @@ public class EventExecutor {
     return "" + Double.parseDouble(price) * stopLoss;
   }
 
-  public LinkedBlockingQueue<StockMessage> getQueue() {
+  public PriorityBlockingQueue<StockMessage> getQueue() {
     return queue;
   }
 

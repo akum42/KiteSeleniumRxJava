@@ -144,13 +144,13 @@ public class WebAction {
     findElementByCSS("form#buysellform button[type=\"submit\"]").click();
   }
 
-  public void login() {
-    findElementByCSS("input[name=\"user_id\"]").sendKeys("ZH3256");
-    findElementByCSS("input#inputtwo").sendKeys("Shiv@123");
+  public void login(String userName, String passWord, String p1, String p2) {
+    findElementByCSS("input[name=\"user_id\"]").sendKeys(userName);
+    findElementByCSS("input#inputtwo").sendKeys(passWord);
     findElementByCSS("form#loginform button[type=\"submit\"]").click();
 
-    findElementByCSS("input[name=\"answer1\"]").sendKeys("amit");
-    findElementByCSS("input[name=\"answer2\"]").sendKeys("amit");
+    findElementByCSS("input[name=\"answer1\"]").sendKeys(p1);
+    findElementByCSS("input[name=\"answer2\"]").sendKeys(p2);
     findElementByCSS("form#twofaform button[type=\"submit\"]").click();
   }
   

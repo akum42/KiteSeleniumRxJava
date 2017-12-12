@@ -2,8 +2,6 @@ import java.time.LocalTime;
 import java.util.Comparator;
 import java.util.concurrent.PriorityBlockingQueue;
 
-import org.openqa.selenium.support.ui.Sleeper;
-
 import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.Subject;
 
@@ -27,7 +25,7 @@ public class ApplicationController {
   public static void main(String[] args) {
     ApplicationController controller = ApplicationController.getInstance();
     if (isMarketOpen() == 1) {
-      WebAction.getInstance().login();
+      WebAction.getInstance().login(args[0], args[1], args[2], args[3]);
 
       new Thread(
               () -> {

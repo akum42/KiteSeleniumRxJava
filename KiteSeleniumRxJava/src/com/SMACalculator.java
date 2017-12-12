@@ -1,5 +1,5 @@
+package com;
 import java.util.Map;
-import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
@@ -32,7 +32,7 @@ public class SMACalculator {
     return smaCalculator;
   }
 
-  public void startCalculation(Subject<Pair<String, Double>> stockStream) {
+  public void startCalculation(Subject<Pair<String, String>> stockStream) {
     calcSMAMinute(stockStream);
     calcSMA5Minute();
     calcSMASlow();
@@ -113,7 +113,7 @@ public class SMACalculator {
                         }));
   }
 
-  private void calcSMAMinute(Subject<Pair<String, Double>> stockStream) {
+  private void calcSMAMinute(Subject<Pair<String, String>> stockStream) {
     stockStream
         .groupBy(Pair::getKey)
         .subscribe(
@@ -123,19 +123,12 @@ public class SMACalculator {
                     .subscribe(
                         l -> {
                           Double d =
-                              l.stream().mapToDouble(e -> e.getValue()).average().getAsDouble();
+                              l.stream()
+                                  .mapToDouble(e -> Double.parseDouble(e.getValue()))
+                                  .average()
+                                  .getAsDouble();
                           sma_1_min.onNext(new Pair<String, Double>(l.get(0).getKey(), d));
                         }));
-  }
-
-  public static void main(String[] args) throws Exception {
-    Subject<Pair<String, Double>> subject = BehaviorSubject.create();
-    SMACalculator.getInstance().startCalculation(subject);
-    DecisionMaker.getInstance().startTakingDecision();
-    while (true) {
-      subject.onNext(new Pair(new Random().nextInt(60) + "", new Random().nextDouble() * 100));
-      Thread.sleep(1000);
-    }
   }
 
   public Map<String, Subject<Pair<Double, Double>>> getStockSMASlowPair() {

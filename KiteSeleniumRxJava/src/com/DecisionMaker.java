@@ -1,3 +1,5 @@
+package com;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -52,8 +54,8 @@ public class DecisionMaker {
                                   l -> {
                                     if (getResult(l.getKey(), l.getValue()) == 1
                                         && !position.getOrDefault(k.getKey(), "").equals("BUY"))
-                                      ApplicationController.getInstance()
-                                          .getQuery()
+                                      EventExecutor.getInstance()
+                                          .getQueue()
                                           .add(
                                               new StockMessage(
                                                   Integer.MAX_VALUE,
@@ -63,8 +65,8 @@ public class DecisionMaker {
                                                       l.getValue().getValue().toString())));
                                     else if (getResult(l.getKey(), l.getValue()) == -1
                                         && !position.getOrDefault(k.getKey(), "").equals("SELL"))
-                                      ApplicationController.getInstance()
-                                          .getQuery()
+                                      EventExecutor.getInstance()
+                                          .getQueue()
                                           .add(
                                               new StockMessage(
                                                   Integer.MAX_VALUE,

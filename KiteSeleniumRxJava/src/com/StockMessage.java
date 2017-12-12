@@ -1,3 +1,4 @@
+package com;
 
 public class StockMessage {
   private final int priority;

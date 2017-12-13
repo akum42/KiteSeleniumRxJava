@@ -1,7 +1,6 @@
 package com;
 
 import java.util.List;
-import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.PriorityBlockingQueue;
 
 import io.reactivex.subjects.BehaviorSubject;
@@ -16,7 +15,7 @@ public class EventExecutor {
   private static final double stopLoss = 0.005;
 
   private EventExecutor() {
-   queue = new PriorityBlockingQueue<>(10, new StockMessageComparator());
+    queue = new PriorityBlockingQueue<>(10, new StockMessageComparator());
     result = BehaviorSubject.create();
   }
 
@@ -37,45 +36,46 @@ public class EventExecutor {
                 e.printStackTrace();
               }
               while (true) {
-                StockMessage message = null;
                 try {
-                  message = event.queue.take();
-                } catch (InterruptedException e) {
+                  StockMessage message = event.queue.take();
+                  System.out.println(event.queue.size() + "  =  " + message.getMessage());
+
+                  switch (message.getMessage()) {
+                    case "ClickMarketWatch":
+                      WebAction.getInstance().clickMarketWatch(message.getPair().getValue());
+                      List<Pair<String, String>> data = WebAction.getInstance().readStockPrice();
+                      data.forEach(k -> event.result.onNext(k));
+                      break;
+                    case "ReadStockValue":
+                      WebAction.getInstance().readStockPrice().forEach(k -> event.result.onNext(k));
+                      break;
+                    case "BUY":
+                      String buyPrice = message.getPair().getValue();
+                      String buyName = message.getPair().getKey();
+                      String i = StockLocation.getPosition(buyName);
+                      String buyTarget = event.getTarget(buyPrice);
+                      String buyStopLoss = event.getStopLoss(buyPrice);
+                      WebAction.getInstance()
+                          .clickMarketWatch(StockLocation.getMarketWatch(buyName));
+                      WebAction.getInstance()
+                          .buySellBO(i, "1", buyPrice, buyTarget, buyStopLoss, "1", true);
+                      DecisionMaker.getInstance().getPosition().put(buyName, "BUY");
+                      break;
+                    case "SELL":
+                      String sellPrice = message.getPair().getValue();
+                      String sellName = message.getPair().getKey();
+                      String j = StockLocation.getPosition(sellName);
+                      String sellTarget = event.getTarget(sellPrice);
+                      String sellStopLoss = event.getStopLoss(sellPrice);
+                      WebAction.getInstance()
+                          .clickMarketWatch(StockLocation.getMarketWatch(sellName));
+                      WebAction.getInstance()
+                          .buySellBO(j, "1", sellPrice, sellTarget, sellStopLoss, "1", false);
+                      DecisionMaker.getInstance().getPosition().put(sellName, "SELL");
+                      break;
+                  }
+                } catch (Exception e) {
                   e.printStackTrace();
-                }
-                System.out.println(event.queue.size()+"  =  "+message.getMessage());
-                switch (message.getMessage()) {
-                  case "ClickMarketWatch":
-                    WebAction.getInstance().clickMarketWatch(message.getPair().getValue());
-                    List<Pair<String, String>>  data =WebAction.getInstance().readStockPrice();
-                    data.forEach(k -> event.result.onNext(k));
-                    break;
-                  case "ReadStockValue":
-                    WebAction.getInstance().readStockPrice().forEach(k -> event.result.onNext(k));
-                    break;
-                  case "BUY":
-                    String buyPrice = message.getPair().getValue();
-                    String buyName = message.getPair().getKey();
-                    String i = StockLocation.getPosition(buyName);
-                    String buyTarget = event.getTarget(buyPrice);
-                    String buyStopLoss = event.getStopLoss(buyPrice);
-                    WebAction.getInstance().clickMarketWatch(StockLocation.getMarketWatch(buyName));
-                    WebAction.getInstance()
-                        .buySellBO(i, "1", buyPrice, buyTarget, buyStopLoss, "1", true);
-                    DecisionMaker.getInstance().getPosition().put(buyName, "BUY");
-                    break;
-                  case "SELL":
-                    String sellPrice = message.getPair().getValue();
-                    String sellName = message.getPair().getKey();
-                    String j = StockLocation.getPosition(sellName);
-                    String sellTarget = event.getTarget(sellPrice);
-                    String sellStopLoss = event.getStopLoss(sellPrice);
-                    WebAction.getInstance()
-                        .clickMarketWatch(StockLocation.getMarketWatch(sellName));
-                    WebAction.getInstance()
-                        .buySellBO(j, "1", sellPrice, sellTarget, sellStopLoss, "1", false);
-                    DecisionMaker.getInstance().getPosition().put(sellName, "SELL");
-                    break;
                 }
                 // WebAction.sleep(100);
               }

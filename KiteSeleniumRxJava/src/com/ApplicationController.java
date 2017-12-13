@@ -29,9 +29,6 @@ public class ApplicationController implements CommandLineRunner {
                         .add(
                             new StockMessage(
                                 0, "ClickMarketWatch", new Pair<String, String>("", "" + i)));
-                    /*EventExecutor.getInstance()
-                        .getQueue()
-                        .add(new StockMessage(Integer.MIN_VALUE, "ReadStockValue", null));*/
                     WebAction.sleep(3000);
                   }
                 }

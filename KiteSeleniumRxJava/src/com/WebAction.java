@@ -1,4 +1,5 @@
 package com;
+
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -154,10 +155,10 @@ public class WebAction {
     findElementByCSS("input[name=\"answer2\"]").sendKeys(p2);
     findElementByCSS("form#twofaform button[type=\"submit\"]").click();
   }
-  
+
   public void readPostion() {
-	  findElementByCSS("header#header div > nav > ul > li:nth-child(4) > a").click();
-	  //TODO read position
+    findElementByCSS("header#header div > nav > ul > li:nth-child(4) > a").click();
+    //TODO read position
   }
 
   private final WebElement findElementByCSS(String element) {
@@ -174,7 +175,7 @@ public class WebAction {
         .executeScript("document.querySelector('" + element + "').click();");
   }
 
-  public final static void sleep(long millis) {
+  public static final void sleep(long millis) {
     try {
       Thread.sleep(millis);
     } catch (InterruptedException e) {

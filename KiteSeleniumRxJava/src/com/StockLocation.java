@@ -1,4 +1,5 @@
 package com;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -109,10 +110,10 @@ public class StockLocation {
   }
 
   public static String getPosition(String name) {
-    return (map.get(name) % 20)+"";
+    return (map.get(name) % 20) + "";
   }
 
   public static String getMarketWatch(String name) {
-    return (map.get(name) / 20 )+"";
+    return (map.get(name) / 20) + "";
   }
 }

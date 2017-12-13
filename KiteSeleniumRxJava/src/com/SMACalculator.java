@@ -15,8 +15,8 @@ public class SMACalculator {
   private final Map<String, Subject<Pair<Double, Double>>> stockSMASlowPair;
   private final Map<String, Subject<Pair<Double, Double>>> stockSMAFastPair;
 
-  private final int slow = 3;
-  private final int fast = 1;
+  private final int slow = 31;
+  private final int fast = 7;
 
   private SMACalculator() {
     sma_1_min = BehaviorSubject.create();
@@ -104,7 +104,7 @@ public class SMACalculator {
         .groupBy(Pair::getKey)
         .subscribe(
             k ->
-                k.buffer(1)
+                k.buffer(5)
                     .subscribe(
                         l -> {
                           Double d =

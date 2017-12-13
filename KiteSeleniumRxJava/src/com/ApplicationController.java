@@ -32,7 +32,7 @@ public class ApplicationController implements CommandLineRunner {
                     /*EventExecutor.getInstance()
                         .getQueue()
                         .add(new StockMessage(Integer.MIN_VALUE, "ReadStockValue", null));*/
-                    WebAction.sleep(200);
+                    WebAction.sleep(3000);
                   }
                 }
               })

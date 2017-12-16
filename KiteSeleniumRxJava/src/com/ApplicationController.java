@@ -9,7 +9,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.Subject;
 
 @SpringBootApplication
@@ -27,8 +26,8 @@ public class ApplicationController implements CommandLineRunner {
   @Override
   public void run(String... args) throws Exception {
     Runtime.getRuntime().exec("cmd /c start \"\" D:\\test\\startMongo.bat");
-    
-   WebAction.sleep(1000*60);
+
+    WebAction.sleep(1000 * 60);
 
     //repository.deleteAll();
     loadData();
@@ -77,12 +76,12 @@ public class ApplicationController implements CommandLineRunner {
   private void loadData() {
     List<Stock> stockList = repository.findAll();
     Subject<Pair<String, Double>> sma_5 = smaCalculator.getSma_5_min();
-    stockList.forEach(
-        k -> {
-          k.getFiveMinuteAverage()
-              .forEach(l -> sma_5.onNext(new Pair<String, Double>(k.getStockName(), l.getValue())));
-        });
     smaCalculator.startInitCalculation(sma_5);
+    stockList.forEach(
+        k ->
+            k.getFiveMinuteAverage()
+                .forEach(
+                    l -> sma_5.onNext(new Pair<String, Double>(k.getStockName(), l.getValue()))));
   }
 
   private static int isMarketOpen() {

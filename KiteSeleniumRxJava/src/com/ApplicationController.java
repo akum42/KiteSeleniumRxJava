@@ -2,13 +2,23 @@ package com;
 
 import java.time.LocalTime;
 import java.util.Comparator;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import io.reactivex.subjects.BehaviorSubject;
+import io.reactivex.subjects.Subject;
+
 @SpringBootApplication
 public class ApplicationController implements CommandLineRunner {
+
+  @Autowired private StockRepository repository;
+  @Autowired private EventExecutor eventExecutor;
+  @Autowired private SMACalculator smaCalculator;
+  @Autowired private DecisionMaker decisionMaker;
 
   public static void main(String[] args) throws Exception {
     SpringApplication.run(ApplicationController.class, args);
@@ -16,6 +26,12 @@ public class ApplicationController implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
+    Runtime.getRuntime().exec("cmd /c start \"\" D:\\test\\startMongo.bat");
+    
+   WebAction.sleep(1000*60);
+
+    //repository.deleteAll();
+    loadData();
 
     if (isMarketOpen() == 1) {
       WebAction.getInstance().login(args[0], args[1], args[2], args[3]);
@@ -24,7 +40,7 @@ public class ApplicationController implements CommandLineRunner {
               () -> {
                 while (true) {
                   for (int i = 2; i <= 6; i++) {
-                    EventExecutor.getInstance()
+                    eventExecutor
                         .getQueue()
                         .add(
                             new StockMessage(
@@ -35,7 +51,11 @@ public class ApplicationController implements CommandLineRunner {
               })
           .start();
 
-      EventExecutor.getInstance().startExecution();
+      eventExecutor.startExecution();
+      smaCalculator.startCalculation(eventExecutor.getResult());
+      decisionMaker.startTakingDecision(
+          smaCalculator.getStockSMASlowPair().entrySet(),
+          smaCalculator.getStockSMAFastPair().entrySet());
 
       new Thread(
               () -> {
@@ -54,9 +74,21 @@ public class ApplicationController implements CommandLineRunner {
       }
   }
 
+  private void loadData() {
+    List<Stock> stockList = repository.findAll();
+    Subject<Pair<String, Double>> sma_5 = smaCalculator.getSma_5_min();
+    stockList.forEach(
+        k -> {
+          k.getFiveMinuteAverage()
+              .forEach(l -> sma_5.onNext(new Pair<String, Double>(k.getStockName(), l.getValue())));
+        });
+    smaCalculator.startInitCalculation(sma_5);
+  }
+
   private static int isMarketOpen() {
     return LocalTime.of(15, 15).compareTo(LocalTime.now())
-        * LocalTime.now().compareTo(LocalTime.of(9, 15));
+        * LocalTime.now().compareTo(LocalTime.of(9, 15))
+        * -1;
   }
 }
 

@@ -29,7 +29,7 @@ public class ApplicationController implements CommandLineRunner {
 
     WebAction.sleep(1000 * 60);
 
-    //repository.deleteAll();
+    repository.deleteAll();
     loadData();
 
     if (isMarketOpen() == 1) {
@@ -86,8 +86,7 @@ public class ApplicationController implements CommandLineRunner {
 
   private static int isMarketOpen() {
     return LocalTime.of(15, 15).compareTo(LocalTime.now())
-        * LocalTime.now().compareTo(LocalTime.of(9, 15))
-        * -1;
+        * LocalTime.now().compareTo(LocalTime.of(9, 15));
   }
 }
 

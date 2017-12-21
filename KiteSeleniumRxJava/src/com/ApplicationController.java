@@ -29,7 +29,6 @@ public class ApplicationController implements CommandLineRunner {
 
     WebAction.sleep(1000 * 60);
 
-    repository.deleteAll();
     loadData();
 
     if (isMarketOpen() == 1) {

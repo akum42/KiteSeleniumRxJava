@@ -17,8 +17,8 @@ public class EventExecutor {
   private final Subject<Pair<String, String>> result;
   private final Map<String, String> position;
 
-  private static final double target = 0.01;
-  private static final double stopLoss = 0.005;
+  private static final double target = 0.005;
+  private static final double stopLoss = 0.0025;
 
   public EventExecutor() {
     queue = new PriorityBlockingQueue<>(10, new StockMessageComparator());
@@ -84,11 +84,11 @@ public class EventExecutor {
   }
 
   private String getTarget(String price) {
-    return "" + Double.parseDouble(price) * target;
+    return "" + Double.parseDouble(price) * target*100/100;
   }
 
   private String getStopLoss(String price) {
-    return "" + Double.parseDouble(price) * stopLoss;
+    return "" + Double.parseDouble(price) * stopLoss*100/100;
   }
 
   public PriorityBlockingQueue<StockMessage> getQueue() {

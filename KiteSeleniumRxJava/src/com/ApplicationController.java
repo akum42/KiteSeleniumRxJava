@@ -68,6 +68,7 @@ public class ApplicationController implements CommandLineRunner {
     while (true)
       if (isMarketOpen() == 1) WebAction.sleep(1000 * 60 * 5);
       else {
+
         WebAction.getInstance().logout();
         System.exit(0);
       }
@@ -80,6 +81,8 @@ public class ApplicationController implements CommandLineRunner {
     stockList.forEach(
         k ->
             k.getFiveMinuteAverage()
+                .stream()
+                .skip(k.getFiveMinuteAverage().size() - 30)
                 .forEach(
                     l -> sma_5.onNext(new Pair<String, Double>(k.getStockName(), l.getValue()))));
   }

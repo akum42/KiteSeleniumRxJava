@@ -1,5 +1,6 @@
 package com;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Map;
@@ -91,9 +92,14 @@ public class SMACalculator {
                         l -> {
                           Double d =
                               l.stream().mapToDouble(e -> e.getValue()).average().getAsDouble();
-                          sma_fast.onNext(new Pair<String, Double>(l.get(0).getKey(), d));
-                          System.out.println(new Pair<String, Double>(l.get(0).getKey(), d)); 
+                          sma_fast.onNext(
+                              new Pair<String, Double>(l.get(0).getKey(), formatDouble(d)));
+                          System.out.println(new Pair<String, Double>(l.get(0).getKey(), d));
                         }));
+  }
+
+  private Double formatDouble(Double d) {
+    return d * 100 / 100;
   }
 
   private void calcSMASlow(Subject<Pair<String, Double>> sma_5) {
@@ -106,8 +112,9 @@ public class SMACalculator {
                         l -> {
                           Double d =
                               l.stream().mapToDouble(e -> e.getValue()).average().getAsDouble();
-                          sma_slow.onNext(new Pair<String, Double>(l.get(0).getKey(), d));
-                          System.out.println(new Pair<String, Double>(l.get(0).getKey(), d) ); 
+                          sma_slow.onNext(
+                              new Pair<String, Double>(l.get(0).getKey(), formatDouble(d)));
+                          System.out.println(new Pair<String, Double>(l.get(0).getKey(), d));
                         }));
   }
 
@@ -121,7 +128,8 @@ public class SMACalculator {
                         l -> {
                           Double d =
                               l.stream().mapToDouble(e -> e.getValue()).average().getAsDouble();
-                          sma_5_min.onNext(new Pair<String, Double>(l.get(0).getKey(), d));
+                          sma_5_min.onNext(
+                              new Pair<String, Double>(l.get(0).getKey(), formatDouble(d)));
                           String stockName = l.get(0).getKey();
                           Stock stock =
                               repository.findByStockName(stockName) != null
@@ -134,7 +142,11 @@ public class SMACalculator {
   }
 
   private String getTimeRange() {
-    return LocalTime.now().getHour() + ":" + convertToRange(LocalTime.now().getMinute());
+    return LocalDate.now().getDayOfYear()
+        + ":"
+        + LocalTime.now().getHour()
+        + ":"
+        + convertToRange(LocalTime.now().getMinute());
   }
 
   private void calcSMAMinute(Subject<Pair<String, String>> stockStream) {

@@ -20,12 +20,7 @@ public class DecisionMaker {
     new Thread(
             () -> {
               while (true) {
-                if (smaSlowList.isEmpty())
-                  try {
-                    Thread.sleep(1000 * 60);
-                  } catch (InterruptedException e) {
-                    e.printStackTrace();
-                  }
+                if (smaSlowList.isEmpty()) sleep(1000 * 60);
                 else break;
               }
               smaSlowList
@@ -76,6 +71,14 @@ public class DecisionMaker {
                   .forEach(System.out::print);
             })
         .start();
+  }
+
+  public static final void sleep(long millis) {
+    try {
+      Thread.sleep(millis);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
   }
 
   private int getResult(Pair<Double, Double> smaSlow, Pair<Double, Double> smaFast) {

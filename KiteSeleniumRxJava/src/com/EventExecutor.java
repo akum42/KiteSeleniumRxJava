@@ -33,7 +33,12 @@ public class EventExecutor {
               while (true) {
                 try {
                   StockMessage message = this.queue.take();
-                  System.out.println(this.queue.size() + "  =  " + message.getMessage());
+                  System.out.println(
+                      this.queue.size()
+                          + " "
+                          + message.getMessage()
+                          + " "
+                          + message.getPair().getKey());
 
                   switch (message.getMessage()) {
                     case "ClickMarketWatch":

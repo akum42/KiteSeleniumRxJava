@@ -59,61 +59,66 @@ public class StockLocation {
     map.put("MCDOWELL-N", 50);
     map.put("ADANIENT", 51);
     map.put("ADANIPOWER", 52);
-    map.put("AJANTPHARM", 53);
-    map.put("ADANIENT", 54);
-    map.put("ADANIPOWER", 55);
-    map.put("AJANTPHARM", 56);
-    map.put("ADANIENT", 57);
-    map.put("ADANIPOWER", 58);
-    map.put("AJANTPHARM", 59);
-    map.put("ADANIENT", 60);
-    map.put("ADANIPOWER", 61);
-    map.put("AJANTPHARM", 62);
-    map.put("ADANIENT", 63);
-    map.put("ADANIPOWER", 64);
-    map.put("AJANTPHARM", 65);
-    map.put("ADANIENT", 66);
-    map.put("ADANIPOWER", 67);
-    map.put("AJANTPHARM", 68);
-    map.put("ADANIENT", 69);
-    map.put("ADANIPOWER", 70);
-    map.put("AJANTPHARM", 71);
-    map.put("ADANIENT", 72);
-    map.put("ADANIPOWER", 73);
-    map.put("AJANTPHARM", 74);
-    map.put("ADANIENT", 75);
-    map.put("ADANIPOWER", 76);
-    map.put("AJANTPHARM", 77);
-    map.put("ADANIENT", 78);
-    map.put("ADANIPOWER", 79);
-    map.put("AJANTPHARM", 80);
-    map.put("ADANIENT", 81);
-    map.put("ADANIPOWER", 82);
-    map.put("AJANTPHARM", 83);
-    map.put("ADANIENT", 84);
-    map.put("ADANIPOWER", 85);
-    map.put("AJANTPHARM", 86);
-    map.put("ADANIENT", 87);
-    map.put("ADANIPOWER", 88);
-    map.put("AJANTPHARM", 89);
-    map.put("ADANIENT", 90);
-    map.put("ADANIPOWER", 91);
-    map.put("AJANTPHARM", 92);
-    map.put("ADANIENT", 93);
-    map.put("ADANIPOWER", 94);
-    map.put("AJANTPHARM", 95);
-    map.put("ADANIENT", 96);
-    map.put("ADANIPOWER", 97);
-    map.put("AJANTPHARM", 98);
-    map.put("ADANIENT", 99);
-    map.put("ADANIPOWER", 100);
+    map.put("AMARAJABAT", 53);
+    map.put("AJANTPHARM", 54);
+    map.put("APOLLOHOSP", 55);
+    map.put("APOLLOTYRE", 56);
+    map.put("ARVIND", 57);
+    map.put("BANKINDIA", 58);
+    map.put("BERGEPAINT", 59);
+    map.put("BHARATFORG", 60);
+    map.put("BIOCON", 61);
+    map.put("CESC", 62);
+    map.put("CANBK", 63);
+    map.put("CASTROLIND", 64);
+    map.put("CENTURYTEX", 65);
+    map.put("DALMIABHA", 66);
+    map.put("DISHTV", 67);
+    map.put("DIVISLAB", 68);
+    map.put("ENGINERSIN", 69);
+    map.put("EXIDEIND", 70);
+    map.put("FEDERALBNK", 71);
+    map.put("GMRINFRA", 72);
+    map.put("GODREJIND", 73);
+    map.put("IDBI", 74);
+    map.put("IDFCBANK", 75);
+    map.put("IDFC", 76);
+    map.put("IRB", 77);
+    map.put("IGL", 78);
+    map.put("JSWENERGY", 79);
+    map.put("JINDALSTEL", 80);
+    map.put("L&TFIN", 81);
+    map.put("M&MFIN", 82);
+    map.put("MRPL", 83);
+    map.put("MINDTREE", 84);
+    map.put("MUTHOOTFIN", 85);
+    map.put("PCJEWELLER", 86);
+    map.put("PAGEIND", 87);
+    map.put("RBLBANK", 88);
+    map.put("RCOM", 89);
+    map.put("RELINFRA", 90);
+    map.put("RPOWER", 91);
+    map.put("SRF", 92);
+    map.put("STAR", 93);
+    map.put("TVSMOTOR", 94);
+    map.put("TATACHEM", 95);
+    map.put("TATACOMM", 96);
+    map.put("TATAGLOBAL", 97);
+    map.put("UNIONBANK", 98);
+    map.put("UBL", 99);
+    map.put("VOLTAS", 100);
   }
 
   public static String getPosition(String name) {
-    return (map.get(name) % 20) + "";
+    return ((map.get(name) % 20)==0?20: +(map.get(name) % 20))+ "";
   }
 
   public static String getMarketWatch(String name) {
     return (map.get(name) / 20) + "";
   }
+  
+  public static void main(String[] args) {
+	System.out.println(getMarketWatch("ADANIPOWER"));
+	System.out.println(getPosition("ADANIENT"));
+}
 }

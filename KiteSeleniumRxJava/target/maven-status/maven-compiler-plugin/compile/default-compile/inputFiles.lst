@@ -1,7 +1,10 @@
-E:\workspace\KiteSeleniumRxJava\KiteSeleniumRxJava\src\ApplicationController.java
-E:\workspace\KiteSeleniumRxJava\KiteSeleniumRxJava\src\StockMessage.java
-E:\workspace\KiteSeleniumRxJava\KiteSeleniumRxJava\src\Pair.java
-E:\workspace\KiteSeleniumRxJava\KiteSeleniumRxJava\src\WebAction.java
-E:\workspace\KiteSeleniumRxJava\KiteSeleniumRxJava\src\StockLocation.java
-E:\workspace\KiteSeleniumRxJava\KiteSeleniumRxJava\src\DecisionMaker.java
-E:\workspace\KiteSeleniumRxJava\KiteSeleniumRxJava\src\SMACalculator.java
+E:\workspace\KiteSeleniumRxJava\KiteSeleniumRxJava\src\com\ApplicationController.java
+E:\workspace\KiteSeleniumRxJava\KiteSeleniumRxJava\src\com\SMACalculator.java
+E:\workspace\KiteSeleniumRxJava\KiteSeleniumRxJava\src\com\WebAction.java
+E:\workspace\KiteSeleniumRxJava\KiteSeleniumRxJava\src\com\DecisionMaker.java
+E:\workspace\KiteSeleniumRxJava\KiteSeleniumRxJava\src\com\StockRepository.java
+E:\workspace\KiteSeleniumRxJava\KiteSeleniumRxJava\src\com\Stock.java
+E:\workspace\KiteSeleniumRxJava\KiteSeleniumRxJava\src\com\StockMessage.java
+E:\workspace\KiteSeleniumRxJava\KiteSeleniumRxJava\src\com\StockLocation.java
+E:\workspace\KiteSeleniumRxJava\KiteSeleniumRxJava\src\com\EventExecutor.java
+E:\workspace\KiteSeleniumRxJava\KiteSeleniumRxJava\src\com\Pair.java

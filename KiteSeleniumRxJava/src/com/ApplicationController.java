@@ -25,9 +25,9 @@ public class ApplicationController implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
-    Runtime.getRuntime().exec("cmd /c start \"\" D:\\test\\startMongo.bat");
+    //Runtime.getRuntime().exec("cmd /c start \"\" D:\\test\\startMongo.bat");
 
-    WebAction.sleep(1000 * 60);
+    //WebAction.sleep(1000 * 60);
 
     loadData();
 

@@ -83,7 +83,8 @@ public class WebAction {
 
     sleep(50);
 
-    findElementByCSS("form#buysellform div.show-advanced-options").click();
+    if(findElementByCSS("form#buysellform div.show-advanced-options",1)!= null)
+    	findElementByCSS("form#buysellform div.show-advanced-options").click();
     findElementByCSS("form#buysellform div.varities-block > label:nth-child(2)").click();
 
     findElementByCSS("input#quantity").clear();
@@ -165,6 +166,10 @@ public class WebAction {
     return (new WebDriverWait(driver, 10))
         .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(element)));
   }
+  private final WebElement findElementByCSS(String element, long timeout) {
+	    return (new WebDriverWait(driver, timeout))
+	        .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(element)));
+	  }
 
   private final void focusOnElement(String element) {
     new Actions(driver).moveToElement(findElementByCSS(element)).perform();

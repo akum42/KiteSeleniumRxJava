@@ -16,7 +16,6 @@ import io.reactivex.subjects.Subject;
 @Service
 public class SMACalculator {
   @Autowired private StockRepository repository;
-
   private final Subject<Pair<String, Double>> sma_1_min;
   private final Subject<Pair<String, Double>> sma_5_min;
   private final Subject<Pair<String, Double>> sma_slow;
@@ -25,7 +24,7 @@ public class SMACalculator {
   private final Map<String, Subject<Pair<Double, Double>>> stockSMAFastPair;
 
   private final int slow = 31;
-  private final int fast = 7;
+  private final int fast = 3;
 
   public SMACalculator() {
     sma_1_min = BehaviorSubject.create();
@@ -94,12 +93,11 @@ public class SMACalculator {
                               l.stream().mapToDouble(e -> e.getValue()).average().getAsDouble();
                           sma_fast.onNext(
                               new Pair<String, Double>(l.get(0).getKey(), formatDouble(d)));
-                          System.out.println(new Pair<String, Double>(l.get(0).getKey(), d));
                         }));
   }
 
   private Double formatDouble(Double d) {
-    return d * 100 / 100;
+    return Math.round(d * 100.0 )/ 100.0;
   }
 
   private void calcSMASlow(Subject<Pair<String, Double>> sma_5) {
@@ -114,7 +112,6 @@ public class SMACalculator {
                               l.stream().mapToDouble(e -> e.getValue()).average().getAsDouble();
                           sma_slow.onNext(
                               new Pair<String, Double>(l.get(0).getKey(), formatDouble(d)));
-                          System.out.println(new Pair<String, Double>(l.get(0).getKey(), d));
                         }));
   }
 

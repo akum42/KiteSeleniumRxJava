@@ -25,9 +25,6 @@ public class ApplicationController implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
-    //Runtime.getRuntime().exec("cmd /c start \"\" D:\\test\\startMongo.bat");
-
-    //WebAction.sleep(1000 * 60);
 
     loadData();
 
@@ -63,14 +60,13 @@ public class ApplicationController implements CommandLineRunner {
                 }
               })
           .start();
+      while (true)
+        if (isMarketOpen() == 1) WebAction.sleep(1000 * 60 * 5);
+        else {
+          WebAction.getInstance().logout();
+          System.exit(0);
+        }
     }
-    while (true)
-      if (isMarketOpen() == 1) WebAction.sleep(1000 * 60 * 5);
-      else {
-
-        WebAction.getInstance().logout();
-        System.exit(0);
-      }
   }
 
   private void loadData() {

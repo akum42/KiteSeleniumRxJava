@@ -68,7 +68,7 @@ public class DecisionMaker {
                                                       k.getKey(),
                                                       l.getValue().getValue().toString())));
                                   }))
-                  .forEach(System.out::print);
+                  .forEach(System.err::print);
             })
         .start();
   }
@@ -88,6 +88,6 @@ public class DecisionMaker {
     Double smaFast1 = smaFast.getValue();
     return ((int) Math.signum(smaSlow0 - smaFast0) == (int) Math.signum(smaSlow1 - smaFast1))
         ? 0
-        : (int) Math.signum(smaFast0 - smaSlow0);
+        : (int) Math.signum(smaFast1 - smaSlow1);
   }
 }

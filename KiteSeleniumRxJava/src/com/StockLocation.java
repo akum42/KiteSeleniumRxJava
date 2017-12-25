@@ -110,15 +110,10 @@ public class StockLocation {
   }
 
   public static String getPosition(String name) {
-    return ((map.get(name) % 20)==0?20: +(map.get(name) % 20))+ "";
+    return ((map.get(name) % 20) == 0 ? 20 : +(map.get(name) % 20)) + "";
   }
 
   public static String getMarketWatch(String name) {
     return (map.get(name) / 20) + "";
   }
-  
-  public static void main(String[] args) {
-	System.out.println(getMarketWatch("ADANIPOWER"));
-	System.out.println(getPosition("ADANIENT"));
-}
 }

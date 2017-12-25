@@ -18,7 +18,7 @@ public class EventExecutor {
   private final Map<String, String> position;
 
   private static final double target = 0.005;
-  private static final double stopLoss = 0.0025;
+  private static final double stopLoss = 0.0015;
 
   public EventExecutor() {
     queue = new PriorityBlockingQueue<>(10, new StockMessageComparator());
@@ -33,12 +33,12 @@ public class EventExecutor {
               while (true) {
                 try {
                   StockMessage message = this.queue.take();
-                  System.out.println(
+                  /*System.out.println(
                       this.queue.size()
                           + " "
                           + message.getMessage()
                           + " "
-                          + message.getPair().getKey());
+                          + message.getPair().getKey());*/
 
                   switch (message.getMessage()) {
                     case "ClickMarketWatch":
@@ -55,10 +55,11 @@ public class EventExecutor {
                       String i = StockLocation.getPosition(buyName);
                       String buyTarget = this.getTarget(buyPrice);
                       String buyStopLoss = this.getStopLoss(buyPrice);
-                      WebAction.getInstance()
-                          .clickMarketWatch(StockLocation.getMarketWatch(buyName));
-                      WebAction.getInstance()
-                          .buySellBO(i, "1", buyPrice, buyTarget, buyStopLoss, "1", true);
+                     // WebAction.getInstance()
+                       //   .clickMarketWatch(StockLocation.getMarketWatch(buyName));
+                      //WebAction.getInstance()
+                        //  .buySellBO(i, "1", buyPrice, buyTarget, buyStopLoss, "1", true);
+                      System.out.println("BUY "+buyName+" "+buyPrice ); 
                       getPosition().put(buyName, "BUY");
                       break;
                     case "SELL":
@@ -67,10 +68,12 @@ public class EventExecutor {
                       String j = StockLocation.getPosition(sellName);
                       String sellTarget = getTarget(sellPrice);
                       String sellStopLoss = getStopLoss(sellPrice);
-                      WebAction.getInstance()
-                          .clickMarketWatch(StockLocation.getMarketWatch(sellName));
-                      WebAction.getInstance()
-                          .buySellBO(j, "1", sellPrice, sellTarget, sellStopLoss, "1", false);
+                      //WebAction.getInstance()
+                        //  .clickMarketWatch(StockLocation.getMarketWatch(sellName));
+                     // WebAction.getInstance()
+                       //   .buySellBO(j, "1", sellPrice, sellTarget, sellStopLoss, "1", false);
+                      System.out.println("SELL "+sellName+" "+sellPrice ); 
+                      
                       getPosition().put(sellName, "SELL");
                       break;
                   }
@@ -84,11 +87,11 @@ public class EventExecutor {
   }
 
   private String getTarget(String price) {
-    return "" + Double.parseDouble(price) * target*100/100;
+    return "" + Math.round(Double.parseDouble(price) * target*100.0)/100.0;
   }
 
   private String getStopLoss(String price) {
-    return "" + Double.parseDouble(price) * stopLoss*100/100;
+    return "" + Math.round(Double.parseDouble(price) * stopLoss*100.0)/100.0;
   }
 
   public PriorityBlockingQueue<StockMessage> getQueue() {

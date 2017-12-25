@@ -38,7 +38,7 @@ public class WebAction {
   }
 
   public void clickMarketWatch(String i) {
-    findElementByCSS("ul#marketwatches li:nth-child(" + i + ") > a").click();
+	  clickElement("ul#marketwatches li:nth-child(" + i + ") > a");
   }
 
   public List<Pair<String, String>> readStockPrice() {
@@ -83,19 +83,19 @@ public class WebAction {
 
     sleep(50);
 
-    if(findElementByCSS("form#buysellform div.show-advanced-options",1)!= null)
-    	findElementByCSS("form#buysellform div.show-advanced-options").click();
-    findElementByCSS("form#buysellform div.varities-block > label:nth-child(2)").click();
+    //clickElement("form#buysellform div.show-advanced-options");
+    clickElement("form#buysellform div.varities-block > label:nth-child(2)");
 
     findElementByCSS("input#quantity").clear();
     findElementByCSS("input#quantity").sendKeys(quantity);
+    findElementByCSS("input#price").clear();
     findElementByCSS("input#price").sendKeys(price);
 
     findElementByCSS("input#stoploss").sendKeys(stopLoss);
     findElementByCSS("input#squareoff").sendKeys(target);
     findElementByCSS("input#trailingstoploss").sendKeys(trailingStopLoss);
 
-    findElementByCSS("form#buysellform button[type=\"submit\"]").click();
+    clickElement("form#buysellform button[type=\"submit\"]");
   }
 
   public void buySellMISMarket(String i, String quantity, boolean isBuy) {
@@ -113,13 +113,13 @@ public class WebAction {
 
     sleep(50);
 
-    findElementByCSS("form#buysellform div.five.columns.product > label:nth-child(2)").click();
-    findElementByCSS("form#buysellform div.seven.columns.text-right > label:nth-child(1)").click();
+    clickElement("form#buysellform div.five.columns.product > label:nth-child(2)");
+    clickElement("form#buysellform div.seven.columns.text-right > label:nth-child(1)");
 
     findElementByCSS("input#quantity").clear();
     findElementByCSS("input#quantity").sendKeys(quantity);
 
-    findElementByCSS("form#buysellform button[type=\"submit\"]").click();
+    clickElement("form#buysellform button[type=\"submit\"]");
   }
 
   public void buySellMISLimit(String i, String quantity, String price, boolean isBuy) {
@@ -137,39 +137,40 @@ public class WebAction {
 
     sleep(50);
 
-    findElementByCSS("form#buysellform div.five.columns.product > label:nth-child(2)").click();
-    findElementByCSS("form#buysellform div.seven.columns.text-right > label:nth-child(2)").click();
+    clickElement("form#buysellform div.five.columns.product > label:nth-child(2)");
+    clickElement("form#buysellform div.seven.columns.text-right > label:nth-child(2)");
 
     findElementByCSS("input#quantity").clear();
     findElementByCSS("input#quantity").sendKeys(quantity);
     findElementByCSS("input#price").sendKeys(price);
 
-    findElementByCSS("form#buysellform button[type=\"submit\"]").click();
+    clickElement("form#buysellform button[type=\"submit\"]");
   }
 
   public void login(String userName, String passWord, String p1, String p2) {
     findElementByCSS("input[name=\"user_id\"]").sendKeys(userName);
     findElementByCSS("input#inputtwo").sendKeys(passWord);
-    findElementByCSS("form#loginform button[type=\"submit\"]").click();
+    clickElement("form#loginform button[type=\"submit\"]");
 
     findElementByCSS("input[name=\"answer1\"]").sendKeys(p1);
     findElementByCSS("input[name=\"answer2\"]").sendKeys(p2);
-    findElementByCSS("form#twofaform button[type=\"submit\"]").click();
+    clickElement("form#twofaform button[type=\"submit\"]");
   }
 
   public void readPostion() {
-    findElementByCSS("header#header div > nav > ul > li:nth-child(4) > a").click();
+	  clickElement("header#header div > nav > ul > li:nth-child(4) > a");
     //TODO read position
   }
 
+  private final void clickElement(String element) {
+	  if(findElementByCSS(element).isDisplayed())
+		  findElementByCSS(element).click();
+  }
   private final WebElement findElementByCSS(String element) {
-    return (new WebDriverWait(driver, 10))
+    return (new WebDriverWait(driver, 1))
         .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(element)));
   }
-  private final WebElement findElementByCSS(String element, long timeout) {
-	    return (new WebDriverWait(driver, timeout))
-	        .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(element)));
-	  }
+
 
   private final void focusOnElement(String element) {
     new Actions(driver).moveToElement(findElementByCSS(element)).perform();

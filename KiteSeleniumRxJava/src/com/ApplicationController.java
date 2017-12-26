@@ -71,7 +71,7 @@ public class ApplicationController implements CommandLineRunner {
 		Subject<Pair<String, Double>> sma_5 = smaCalculator.getSma_5_min();
 		smaCalculator.startInitCalculation(sma_5);
 		stockList.forEach(k -> k.getFiveMinuteAverage().stream()
-				.skip(k.getFiveMinuteAverage().size() - 32 > 0 ? k.getFiveMinuteAverage().size() : 0)
+				.skip(k.getFiveMinuteAverage().size() - 32 > 0 ? k.getFiveMinuteAverage().size() -32 : 0)
 				.forEach(l -> sma_5.onNext(new Pair<String, Double>(k.getStockName(), l.getValue()))));
 	}
 

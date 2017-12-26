@@ -83,7 +83,8 @@ public class WebAction {
 
     sleep(50);
 
-    //clickElement("form#buysellform div.show-advanced-options");
+    if(findElementByCSS("form#buysellform div.show-advanced-options").isDisplayed())
+    	clickElement("form#buysellform div.show-advanced-options");
     clickElement("form#buysellform div.varities-block > label:nth-child(2)");
 
     findElementByCSS("input#quantity").clear();

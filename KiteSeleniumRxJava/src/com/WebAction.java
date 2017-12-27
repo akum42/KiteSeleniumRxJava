@@ -39,6 +39,7 @@ public class WebAction {
 
   public void clickMarketWatch(String i) {
 	  clickElement("ul#marketwatches li:nth-child(" + i + ") > a");
+	  sleep(100);
   }
 
   public List<Pair<String, String>> readStockPrice() {
@@ -70,6 +71,7 @@ public class WebAction {
       String trailingStopLoss,
       boolean isBuy) {
     focusOnElement("ul#instruments li:nth-child(" + i + ") > div");
+    sleep(50);
     if (isBuy)
       clickfocusOnElement(
           "ul#instruments li:nth-child("
@@ -97,6 +99,7 @@ public class WebAction {
     findElementByCSS("input#trailingstoploss").sendKeys(trailingStopLoss);
 
     clickElement("form#buysellform button[type=\"submit\"]");
+    sleep(50);
   }
 
   public void buySellMISMarket(String i, String quantity, boolean isBuy) {
@@ -121,6 +124,7 @@ public class WebAction {
     findElementByCSS("input#quantity").sendKeys(quantity);
 
     clickElement("form#buysellform button[type=\"submit\"]");
+    sleep(50);
   }
 
   public void buySellMISLimit(String i, String quantity, String price, boolean isBuy) {
@@ -168,7 +172,7 @@ public class WebAction {
 		  findElementByCSS(element).click();
   }
   private final WebElement findElementByCSS(String element) {
-    return (new WebDriverWait(driver, 1))
+    return (new WebDriverWait(driver, 3))
         .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(element)));
   }
 
@@ -189,4 +193,14 @@ public class WebAction {
       e.printStackTrace();
     }
   }
+
+public String getAllOpenOrders() {
+	// TODO Auto-generated method stub
+	return "1";
+}
+
+public void exitOpenOrder(String orderNumber) {
+	// TODO Auto-generated method stub
+	
+}
 }

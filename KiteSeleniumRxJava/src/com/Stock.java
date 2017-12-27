@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.data.annotation.Id;
 
@@ -14,7 +15,7 @@ public class Stock {
   private final List<Pair<String, Double>> fiveMinuteAverage;
 
   public Stock() {
-    minuteAverage = new HashMap<>();
+    minuteAverage = new ConcurrentHashMap<>();
     fiveMinuteAverage = new ArrayList<>();
   }
 

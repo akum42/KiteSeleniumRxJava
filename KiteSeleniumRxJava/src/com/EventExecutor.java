@@ -72,15 +72,13 @@ public class EventExecutor {
                           .clickMarketWatch(StockLocation.getMarketWatch(sellName));
                       WebAction.getInstance()
                           .buySellBO(j, "1", sellPrice, sellTarget, sellStopLoss, "1", false);
-                      System.out.println("SELL "+sellName+" "+sellPrice ); 
-                      
+                      System.out.println("SELL "+sellName+" "+sellPrice );                       
                       getPosition().put(sellName, "SELL");
                       break;
                   }
                 } catch (Exception e) {
                   e.printStackTrace();
                 }
-                // WebAction.sleep(100);
               }
             })
         .start();

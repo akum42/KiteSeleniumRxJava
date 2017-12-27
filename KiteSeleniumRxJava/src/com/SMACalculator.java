@@ -97,7 +97,7 @@ public class SMACalculator {
   }
 
   private Double formatDouble(Double d) {
-    return Math.round(d * 100.0 )/ 100.0;
+    return Math.round(d * 10.0 )/ 10.0;
   }
 
   private void calcSMASlow(Subject<Pair<String, Double>> sma_5) {

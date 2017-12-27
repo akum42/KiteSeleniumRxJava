@@ -1,11 +1,11 @@
-com\StockMessageComparator.class
 com\StockRepository.class
-com\Stock.class
-com\DecisionMaker.class
 com\SMACalculator.class
 com\ApplicationController.class
 com\EventExecutor.class
-com\StockLocation.class
 com\StockMessage.class
 com\WebAction.class
 com\Pair.class
+com\StockMessageComparator.class
+com\Stock.class
+com\DecisionMaker.class
+com\StockLocation.class

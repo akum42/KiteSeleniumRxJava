@@ -26,6 +26,8 @@ public class ApplicationController implements CommandLineRunner {
 	private SMACalculator smaCalculator;
 	@Autowired
 	private DecisionMaker decisionMaker;
+	@Autowired
+	private CleanOrders cleanOrders;
 
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(ApplicationController.class, args);
@@ -51,9 +53,11 @@ public class ApplicationController implements CommandLineRunner {
 
 			eventExecutor.startExecution();
 			smaCalculator.startCalculation(eventExecutor.getResult());
-			decisionMaker.startTakingDecision(smaCalculator.getStockSMASlowPair().entrySet(),
-					smaCalculator.getStockSMAFastPair().entrySet());
-
+			//decisionMaker.startTakingDecision(smaCalculator.getStockSMASlowPair().entrySet(),
+					//smaCalculator.getStockSMAFastPair().entrySet());
+			cleanOrders.clearOldOrders();
+			cleanOrders.clearAllOrders();
+			
 			new Thread(() -> {
 				while (true) {
 					WebAction.getInstance().readPostion();
@@ -65,10 +69,7 @@ public class ApplicationController implements CommandLineRunner {
 			if (isMarketOpen() == 1)
 				WebAction.sleep(1000 * 60 * 5);
 			else {
-				int openOrders = Integer.parseInt(WebAction.getInstance().getAllOpenOrders());
-				for (int i = 1; i <= openOrders; i++) {
-					WebAction.getInstance().exitOpenOrder("" + i);
-				}
+				cleanOrders.clearAllOrders();
 				WebAction.getInstance().logout();
 				clearOldData();
 				System.exit(0);

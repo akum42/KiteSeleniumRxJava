@@ -52,10 +52,11 @@ public class ApplicationController implements CommandLineRunner {
 
 			eventExecutor.startExecution();
 			smaCalculator.startCalculation(eventExecutor.getResult());
-			decisionMaker.startTakingDecision(smaCalculator.getStockSMASlowPair().entrySet(),
-					smaCalculator.getStockSMAFastPair().entrySet());
-			cleanOrders.clearOldOrders();
-			cleanOrders.clearAllOrders();
+			if (Boolean.parseBoolean(args[3])) {
+				decisionMaker.startTakingDecision(smaCalculator.getStockSMASlowPair().entrySet(),
+						smaCalculator.getStockSMAFastPair().entrySet());
+				cleanOrders.clearOldOrders();
+			}
 
 			new Thread(() -> {
 				WebAction.getInstance().readPostion();
@@ -66,7 +67,6 @@ public class ApplicationController implements CommandLineRunner {
 				sleep(1000 * 60 * 5);
 			else {
 				cleanOrders.clearAllOrders();
-				clearOldData();
 			}
 			if (marketOpenTill() < 0) {
 				WebAction.getInstance().logout();

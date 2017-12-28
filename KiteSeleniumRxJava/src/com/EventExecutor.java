@@ -20,7 +20,7 @@ public class EventExecutor {
 	private final Map<String, String> position;
 
 	private static final double target = 0.005;
-	private static final double stopLoss = 0.0015;
+	private static final double stopLoss = 0.0025;
 
 	public EventExecutor() {
 		queue = new PriorityBlockingQueue<>(10, new StockMessageComparator());

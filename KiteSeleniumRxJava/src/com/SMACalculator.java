@@ -25,6 +25,7 @@ public class SMACalculator {
 
   private final int slow = 31;
   private final int fast = 3;
+  private final int slot = 5;
 
   public SMACalculator() {
     sma_1_min = BehaviorSubject.create();
@@ -86,7 +87,7 @@ public class SMACalculator {
         .groupBy(Pair::getKey)
         .subscribe(
             k ->
-                k.buffer(fast, 1)
+                k.buffer(fast*slot, 1)
                     .subscribe(
                         l -> {
                           Double d =
@@ -105,7 +106,7 @@ public class SMACalculator {
         .groupBy(Pair::getKey)
         .subscribe(
             k ->
-                k.buffer(slow, 1)
+                k.buffer(slow*slot, 1)
                     .subscribe(
                         l -> {
                           Double d =
@@ -120,7 +121,7 @@ public class SMACalculator {
         .groupBy(Pair::getKey)
         .subscribe(
             k ->
-                k.buffer(5)
+                k.buffer(slot,1)
                     .subscribe(
                         l -> {
                           Double d =

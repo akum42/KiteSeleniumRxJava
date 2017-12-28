@@ -1,12 +1,11 @@
 package com;
 
-import java.time.LocalTime;
+import static com.Util.isMarketOpen;
+import static com.Util.sleep;
+
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
-
-import javax.management.RuntimeErrorException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -46,28 +45,28 @@ public class ApplicationController implements CommandLineRunner {
 					for (int i = 2; i <= 6; i++) {
 						eventExecutor.getQueue()
 								.add(new StockMessage(0, "ClickMarketWatch", new Pair<String, String>("", "" + i)));
-						WebAction.sleep(3000);
+						sleep(3000);
 					}
 				}
 			}).start();
 
 			eventExecutor.startExecution();
 			smaCalculator.startCalculation(eventExecutor.getResult());
-			//decisionMaker.startTakingDecision(smaCalculator.getStockSMASlowPair().entrySet(),
-					//smaCalculator.getStockSMAFastPair().entrySet());
+			decisionMaker.startTakingDecision(smaCalculator.getStockSMASlowPair().entrySet(),
+					smaCalculator.getStockSMAFastPair().entrySet());
 			cleanOrders.clearOldOrders();
 			cleanOrders.clearAllOrders();
 			
 			new Thread(() -> {
 				while (true) {
 					WebAction.getInstance().readPostion();
-					WebAction.sleep(1000 * 60 * 30);
+					sleep(1000 * 60 * 30);
 				}
 			}).start();
 		}
 		while (true)
 			if (isMarketOpen() == 1)
-				WebAction.sleep(1000 * 60 * 5);
+				sleep(1000 * 60 * 5);
 			else {
 				cleanOrders.clearAllOrders();
 				WebAction.getInstance().logout();
@@ -92,10 +91,6 @@ public class ApplicationController implements CommandLineRunner {
 				.skip(k.getFiveMinuteAverage().size() - 32 > 0 ? k.getFiveMinuteAverage().size() - 32
 						: k.getFiveMinuteAverage().size())
 				.forEach(l -> sma_5.onNext(new Pair<String, Double>(k.getStockName(), l.getValue()))));
-	}
-
-	private static int isMarketOpen() {
-		return LocalTime.of(15, 15).compareTo(LocalTime.now()) * LocalTime.now().compareTo(LocalTime.of(9, 15));
 	}
 }
 

@@ -1,5 +1,7 @@
 package com;
 
+import static com.Util.sleep;
+
 import java.util.Map;
 import java.util.Set;
 
@@ -71,14 +73,6 @@ public class DecisionMaker {
                   .forEach(System.err::print);
             })
         .start();
-  }
-
-  public static final void sleep(long millis) {
-    try {
-      Thread.sleep(millis);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
   }
 
   private int getResult(Pair<Double, Double> smaSlow, Pair<Double, Double> smaFast) {

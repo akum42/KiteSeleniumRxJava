@@ -1,11 +1,14 @@
 package com;
 
+import static com.Util.sleep;
+import static java.time.temporal.ChronoUnit.MINUTES;
+
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import static java.time.temporal.ChronoUnit.MINUTES;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -158,14 +161,6 @@ public class WebAction {
 
 	private final void clickfocusOnElement(String element) {
 		((JavascriptExecutor) driver).executeScript("document.querySelector('" + element + "').click();");
-	}
-
-	public static final void sleep(long millis) {
-		try {
-			Thread.sleep(millis);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 	}
 
 	private boolean isDisplayed(String element) {

@@ -1,8 +1,9 @@
 package com;
 
+import static com.Util.sleep;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 @Service
 public class CleanOrders {
 	@Autowired
@@ -12,7 +13,7 @@ public class CleanOrders {
 
 		new Thread(() -> {
 			while (true) {
-				//sleep(1000 * 60 * 5);
+				sleep(1000 * 60 * 5);
 				eventExecutor.getQueue().add(new StockMessage(Integer.MIN_VALUE, "ClearOldOrders", null));
 			}
 		}).start();
@@ -25,13 +26,5 @@ public class CleanOrders {
 				eventExecutor.getQueue().add(new StockMessage(Integer.MIN_VALUE, "ClearAllOrders", null));
 			}
 		}).start();
-	}
-
-	public static final void sleep(long millis) {
-		try {
-			Thread.sleep(millis);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 	}
 }

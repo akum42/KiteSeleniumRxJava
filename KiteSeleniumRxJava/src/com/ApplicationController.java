@@ -31,7 +31,6 @@ public class ApplicationController implements CommandLineRunner {
 
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(ApplicationController.class, args);
-
 	}
 
 	@Override

@@ -162,6 +162,10 @@ public class WebAction {
 	private final void clickfocusOnElement(String element) {
 		((JavascriptExecutor) driver).executeScript("document.querySelector('" + element + "').click();");
 	}
+	
+	private final String getTextfocusOnElement(String element) {
+		return ((WebElement)((JavascriptExecutor) driver).executeScript("return document.querySelector('" + element + "');")).getText();
+	}
 
 	private boolean isDisplayed(String element) {
 		return findElementByCSS(element).isDisplayed();
@@ -209,7 +213,7 @@ public class WebAction {
 		for (int i = 1; i <= orderTime.size(); i++) {
 			if (MINUTES.between(LocalTime.now(), LocalTime.parse(orderTime.get(i - 1))) > 5) {
 				focusOnElement("table#orders-table-pending tr:nth-child(" + i + ") > td.action-buttons-container");
-				if ("Cancel".equals(getText("table#orders-table-pending tr:nth-child(" + i
+				if ("Cancel".equals(getTextfocusOnElement("table#orders-table-pending tr:nth-child(" + i
 						+ ") > td.action-buttons-container > div > button.btn.btn-red.btn-outline.ng-scope"))) {
 					clickfocusOnElement("table#orders-table-pending tr:nth-child(" + i
 							+ ") > td.action-buttons-container > div > button.btn.btn-red.btn-outline.ng-scope");

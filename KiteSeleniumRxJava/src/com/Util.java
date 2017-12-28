@@ -12,7 +12,11 @@ public class Util {
 		}
 	}
 
-	public static int isMarketOpen() {
+	public static int orderPlaceTill() {
+		return LocalTime.of(15, 15).compareTo(LocalTime.now()) * LocalTime.now().compareTo(LocalTime.of(9, 15));
+	}
+	
+	public static int marketOpenTill() {
 		return LocalTime.of(15, 15).compareTo(LocalTime.now()) * LocalTime.now().compareTo(LocalTime.of(9, 15));
 	}
 }

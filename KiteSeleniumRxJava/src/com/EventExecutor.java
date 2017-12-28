@@ -1,5 +1,7 @@
 package com;
 
+import static com.Util.orderPlaceTill;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,7 +55,7 @@ public class EventExecutor {
 						String buyTarget = this.getTarget(buyPrice);
 						String buyStopLoss = this.getStopLoss(buyPrice);
 						WebAction.getInstance().clickMarketWatch(StockLocation.getMarketWatch(buyName));
-						if (Double.parseDouble(buyPrice) < 2000d)
+						if (Double.parseDouble(buyPrice) < 2000d && orderPlaceTill()>0)
 							WebAction.getInstance().buySellBO(i, "1", buyPrice, buyTarget, buyStopLoss, "1", true);
 						System.out.println("BUY " + buyName + " " + buyPrice);
 						getPosition().put(buyName, "BUY");
@@ -65,7 +67,7 @@ public class EventExecutor {
 						String sellTarget = getTarget(sellPrice);
 						String sellStopLoss = getStopLoss(sellPrice);
 						WebAction.getInstance().clickMarketWatch(StockLocation.getMarketWatch(sellName));
-						if (Double.parseDouble(sellPrice) < 2000d)
+						if (Double.parseDouble(sellPrice) < 2000d && orderPlaceTill()>0)
 							WebAction.getInstance().buySellBO(j, "1", sellPrice, sellTarget, sellStopLoss, "1", false);
 						System.out.println("SELL " + sellName + " " + sellPrice);
 						getPosition().put(sellName, "SELL");

@@ -1,6 +1,7 @@
 package com;
 
-import static com.Util.isMarketOpen;
+import static com.Util.marketOpenTill;
+import static com.Util.orderPlaceTill;
 import static com.Util.sleep;
 
 import java.util.Comparator;
@@ -30,14 +31,14 @@ public class ApplicationController implements CommandLineRunner {
 
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(ApplicationController.class, args);
-		
+
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
 		loadData();
 
-		if (isMarketOpen() == 1) {
+		if (orderPlaceTill() == 1) {
 			WebAction.getInstance().login(args[0], args[1], args[2], args[3]);
 
 			new Thread(() -> {
@@ -56,29 +57,28 @@ public class ApplicationController implements CommandLineRunner {
 					smaCalculator.getStockSMAFastPair().entrySet());
 			cleanOrders.clearOldOrders();
 			cleanOrders.clearAllOrders();
-			
+
 			new Thread(() -> {
-				while (true) {
-					WebAction.getInstance().readPostion();
-					sleep(1000 * 60 * 30);
-				}
+				WebAction.getInstance().readPostion();
 			}).start();
 		}
-		while (true)
-			if (isMarketOpen() == 1)
+		while (true) {
+			if (orderPlaceTill() > 0)
 				sleep(1000 * 60 * 5);
 			else {
 				cleanOrders.clearAllOrders();
-				WebAction.getInstance().logout();
 				clearOldData();
+			}
+			if (marketOpenTill() < 0) {
+				WebAction.getInstance().logout();
 				System.exit(0);
 			}
+		}
 	}
 
 	private void clearOldData() {
 		List<Stock> stockList = repository.findAll();
-		System.out.println(stockList.stream().map(k -> k.getMinuteAverage())
-		.flatMap(k -> k.entrySet().stream())
+		System.out.println(stockList.stream().map(k -> k.getMinuteAverage()).flatMap(k -> k.entrySet().stream())
 				.skip(10).collect(Collectors.toConcurrentMap(p -> p.toString(), p -> p.toString())));
 
 	}

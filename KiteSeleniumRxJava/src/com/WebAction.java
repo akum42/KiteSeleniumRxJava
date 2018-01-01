@@ -82,7 +82,7 @@ public class WebAction {
 
 		findElementByCSS("input#stoploss").sendKeys(stopLoss);
 		findElementByCSS("input#squareoff").sendKeys(target);
-		findElementByCSS("input#trailingstoploss").sendKeys(trailingStopLoss);
+		//findElementByCSS("input#trailingstoploss").sendKeys(trailingStopLoss);
 
 		clickElement("form#buysellform button[type=\"submit\"]");
 		sleep(50);

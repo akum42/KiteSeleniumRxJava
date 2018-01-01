@@ -52,7 +52,8 @@ public class ApplicationController implements CommandLineRunner {
 
 			eventExecutor.startExecution();
 			smaCalculator.startCalculation(eventExecutor.getResult());
-			if (Boolean.parseBoolean(args[3])) {
+			System.out.println(Boolean.parseBoolean(args[4]));
+			if (Boolean.parseBoolean(args[4])) {
 				decisionMaker.startTakingDecision(smaCalculator.getStockSMASlowPair().entrySet(),
 						smaCalculator.getStockSMAFastPair().entrySet());
 				cleanOrders.clearOldOrders();
@@ -87,7 +88,7 @@ public class ApplicationController implements CommandLineRunner {
 		Subject<Pair<String, Double>> sma_5 = smaCalculator.getSma_5_min();
 		smaCalculator.startInitCalculation(sma_5);
 		stockList.forEach(k -> k.getFiveMinuteAverage().stream()
-				.skip(k.getFiveMinuteAverage().size() - 32 > 0 ? k.getFiveMinuteAverage().size() - 32
+				.skip(k.getFiveMinuteAverage().size() - 32*5 > 0 ? k.getFiveMinuteAverage().size() - 32*5
 						: k.getFiveMinuteAverage().size())
 				.forEach(l -> sma_5.onNext(new Pair<String, Double>(k.getStockName(), l.getValue()))));
 	}

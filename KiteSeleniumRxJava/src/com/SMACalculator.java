@@ -87,7 +87,7 @@ public class SMACalculator {
         .groupBy(Pair::getKey)
         .subscribe(
             k ->
-                k.buffer(fast, 1)
+                k.buffer(fast*slot, 1)
                     .subscribe(
                         l -> {
                           Double d =
@@ -106,7 +106,7 @@ public class SMACalculator {
         .groupBy(Pair::getKey)
         .subscribe(
             k ->
-                k.buffer(slow, 1)
+                k.buffer(slow*slot, 1)
                     .subscribe(
                         l -> {
                           Double d =
@@ -121,7 +121,7 @@ public class SMACalculator {
         .groupBy(Pair::getKey)
         .subscribe(
             k ->
-                k.buffer(slot)
+                k.buffer(slot,1)
                     .subscribe(
                         l -> {
                           Double d =

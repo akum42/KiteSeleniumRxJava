@@ -13,10 +13,10 @@ public class Util {
 	}
 
 	public static int orderPlaceTill() {
-		return LocalTime.of(15, 15).compareTo(LocalTime.now()) * LocalTime.now().compareTo(LocalTime.of(9, 15));
+		return LocalTime.of(15, 10).compareTo(LocalTime.now()) * LocalTime.now().compareTo(LocalTime.of(9, 15));
 	}
 	
 	public static int marketOpenTill() {
-		return LocalTime.of(15, 15).compareTo(LocalTime.now()) * LocalTime.now().compareTo(LocalTime.of(9, 15));
+		return LocalTime.of(15, 29).compareTo(LocalTime.now()) * LocalTime.now().compareTo(LocalTime.of(9, 15));
 	}
 }

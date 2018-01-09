@@ -17,23 +17,23 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+@Service
 public class WebAction {
 
 	private static WebAction webAction;
 	private WebDriver driver;
 
+	@Value("${webdriver.chrome.driver}")
+	private String webDriverString;
+
 	private WebAction() {
-		System.setProperty("webdriver.chrome.driver", "E:\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
 		driver = new ChromeDriver();
 		String baseUrl = "https://kite.zerodha.com/";
 		driver.get(baseUrl);
-	}
-
-	public static final WebAction getInstance() {
-		if (webAction == null)
-			webAction = new WebAction();
-		return webAction;
 	}
 
 	public void logout() {
@@ -77,12 +77,12 @@ public class WebAction {
 
 		findElementByCSS("input#quantity").clear();
 		findElementByCSS("input#quantity").sendKeys(quantity);
-		findElementByCSS("input#price").clear();
-		findElementByCSS("input#price").sendKeys(price);
+		// findElementByCSS("input#price").clear();
+		// findElementByCSS("input#price").sendKeys(price);
 
 		findElementByCSS("input#stoploss").sendKeys(stopLoss);
 		findElementByCSS("input#squareoff").sendKeys(target);
-		//findElementByCSS("input#trailingstoploss").sendKeys(trailingStopLoss);
+		// findElementByCSS("input#trailingstoploss").sendKeys(trailingStopLoss);
 
 		clickElement("form#buysellform button[type=\"submit\"]");
 		sleep(50);
@@ -131,6 +131,7 @@ public class WebAction {
 	}
 
 	public void login(String userName, String passWord, String p1, String p2) {
+		
 		findElementByCSS("input[name=\"user_id\"]").sendKeys(userName);
 		findElementByCSS("input#inputtwo").sendKeys(passWord);
 		clickElement("form#loginform button[type=\"submit\"]");
@@ -162,9 +163,10 @@ public class WebAction {
 	private final void clickfocusOnElement(String element) {
 		((JavascriptExecutor) driver).executeScript("document.querySelector('" + element + "').click();");
 	}
-	
+
 	private final String getTextfocusOnElement(String element) {
-		return ((WebElement)((JavascriptExecutor) driver).executeScript("return document.querySelector('" + element + "');")).getText();
+		return ((WebElement) ((JavascriptExecutor) driver)
+				.executeScript("return document.querySelector('" + element + "');")).getText();
 	}
 
 	private boolean isDisplayed(String element) {

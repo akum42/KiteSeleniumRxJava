@@ -28,6 +28,8 @@ public class ApplicationController implements CommandLineRunner {
 	private DecisionMaker decisionMaker;
 	@Autowired
 	private CleanOrders cleanOrders;
+	@Autowired
+	private WebAction webAction;
 
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(ApplicationController.class, args);
@@ -38,7 +40,7 @@ public class ApplicationController implements CommandLineRunner {
 		loadData();
 
 		if (orderPlaceTill() == 1) {
-			WebAction.getInstance().login(args[0], args[1], args[2], args[3]);
+			webAction.login(args[0], args[1], args[2], args[3]);
 
 			new Thread(() -> {
 				while (true) {
@@ -60,17 +62,17 @@ public class ApplicationController implements CommandLineRunner {
 			}
 
 			new Thread(() -> {
-				WebAction.getInstance().readPostion();
+				webAction.readPostion();
 			}).start();
 		}
 		while (true) {
 			if (orderPlaceTill() > 0)
-				sleep(1000 * 60 * 5);
+				sleep(1000 * 60 * 2);
 			else {
 				cleanOrders.clearAllOrders();
 			}
 			if (marketOpenTill() < 0) {
-				WebAction.getInstance().logout();
+				webAction.logout();
 				System.exit(0);
 			}
 		}

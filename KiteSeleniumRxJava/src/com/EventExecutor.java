@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.PriorityBlockingQueue;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import io.reactivex.subjects.BehaviorSubject;
@@ -15,6 +16,9 @@ import io.reactivex.subjects.Subject;
 @Service
 public class EventExecutor {
 
+	@Autowired
+	private WebAction webAction;
+	
 	private final PriorityBlockingQueue<StockMessage> queue;
 	private final Subject<Pair<String, String>> result;
 	private final Map<String, String> position;
@@ -41,12 +45,12 @@ public class EventExecutor {
 
 					switch (message.getMessage()) {
 					case "ClickMarketWatch":
-						WebAction.getInstance().clickMarketWatch(message.getPair().getValue());
-						List<Pair<String, String>> data = WebAction.getInstance().readStockPrice();
+						webAction.clickMarketWatch(message.getPair().getValue());
+						List<Pair<String, String>> data = webAction.readStockPrice();
 						data.forEach(k -> this.result.onNext(k));
 						break;
 					case "ReadStockValue":
-						WebAction.getInstance().readStockPrice().forEach(k -> result.onNext(k));
+						webAction.readStockPrice().forEach(k -> result.onNext(k));
 						break;
 					case "BUY":
 						String buyPrice = message.getPair().getValue();
@@ -54,9 +58,9 @@ public class EventExecutor {
 						String i = StockLocation.getPosition(buyName);
 						String buyTarget = this.getTarget(buyPrice);
 						String buyStopLoss = this.getStopLoss(buyPrice);
-						WebAction.getInstance().clickMarketWatch(StockLocation.getMarketWatch(buyName));
+						webAction.clickMarketWatch(StockLocation.getMarketWatch(buyName));
 						if (Double.parseDouble(buyPrice) < 2000d && orderPlaceTill()>0)
-							WebAction.getInstance().buySellBO(i, "1", buyPrice, buyTarget, buyStopLoss, "1", true);
+							webAction.buySellBO(i, "1", buyPrice, buyTarget, buyStopLoss, "1", true);
 						System.out.println("BUY " + buyName + " " + buyPrice);
 						getPosition().put(buyName, "BUY");
 						break;
@@ -66,19 +70,19 @@ public class EventExecutor {
 						String j = StockLocation.getPosition(sellName);
 						String sellTarget = getTarget(sellPrice);
 						String sellStopLoss = getStopLoss(sellPrice);
-						WebAction.getInstance().clickMarketWatch(StockLocation.getMarketWatch(sellName));
+						webAction.clickMarketWatch(StockLocation.getMarketWatch(sellName));
 						if (Double.parseDouble(sellPrice) < 2000d && orderPlaceTill()>0)
-							WebAction.getInstance().buySellBO(j, "1", sellPrice, sellTarget, sellStopLoss, "1", false);
+							webAction.buySellBO(j, "1", sellPrice, sellTarget, sellStopLoss, "1", false);
 						System.out.println("SELL " + sellName + " " + sellPrice);
 						getPosition().put(sellName, "SELL");
 						break;
 					case "ClearOldOrders":
-						String orderNumber = WebAction.getInstance().getAllOpenOrders();
-						List<String> orderTime = WebAction.getInstance().getOrderTime(orderNumber);
-						WebAction.getInstance().exitOlderOrder(orderTime);
+						String orderNumber = webAction.getAllOpenOrders();
+						List<String> orderTime = webAction.getOrderTime(orderNumber);
+						webAction.exitOlderOrder(orderTime);
 						break;
 					case "ClearAllOrders":
-						WebAction.getInstance().exitAllOpenOrder();
+						webAction.exitAllOpenOrder();
 						break;
 					}
 				} catch (Exception e) {

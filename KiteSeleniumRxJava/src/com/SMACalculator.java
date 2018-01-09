@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,7 @@ public class SMACalculator {
   private final Subject<Pair<String, Double>> sma_fast;
   private final Map<String, Subject<Pair<Double, Double>>> stockSMASlowPair;
   private final Map<String, Subject<Pair<Double, Double>>> stockSMAFastPair;
+  private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
   private final int slow = 31;
   private final int fast = 3;
@@ -87,18 +90,20 @@ public class SMACalculator {
         .groupBy(Pair::getKey)
         .subscribe(
             k ->
-                k.buffer(fast*slot, 1)
+                k.buffer(fast * slot, 1)
                     .subscribe(
                         l -> {
                           Double d =
                               l.stream().mapToDouble(e -> e.getValue()).average().getAsDouble();
                           sma_fast.onNext(
                               new Pair<String, Double>(l.get(0).getKey(), formatDouble(d)));
+
+                          logger.info("SMA fast --> " + l.get(0).getKey() + " " + formatDouble(d));
                         }));
   }
 
   private Double formatDouble(Double d) {
-    return Math.round(d * 10.0 )/ 10.0;
+    return Math.round(d * 10.0) / 10.0;
   }
 
   private void calcSMASlow(Subject<Pair<String, Double>> sma_5) {
@@ -106,13 +111,14 @@ public class SMACalculator {
         .groupBy(Pair::getKey)
         .subscribe(
             k ->
-                k.buffer(slow*slot, 1)
+                k.buffer(slow * slot, 1)
                     .subscribe(
                         l -> {
                           Double d =
                               l.stream().mapToDouble(e -> e.getValue()).average().getAsDouble();
                           sma_slow.onNext(
                               new Pair<String, Double>(l.get(0).getKey(), formatDouble(d)));
+                          logger.info("SMA slow --> " + l.get(0).getKey() + " " + formatDouble(d));
                         }));
   }
 
@@ -121,7 +127,7 @@ public class SMACalculator {
         .groupBy(Pair::getKey)
         .subscribe(
             k ->
-                k.buffer(slot,1)
+                k.buffer(slot, 1)
                     .subscribe(
                         l -> {
                           Double d =
@@ -144,7 +150,7 @@ public class SMACalculator {
         + ":"
         + LocalTime.now().getHour()
         + ":"
-        + convertToRange(LocalTime.now().getMinute());
+        + LocalTime.now().getMinute();
   }
 
   private void calcSMAMinute(Subject<Pair<String, String>> stockStream) {

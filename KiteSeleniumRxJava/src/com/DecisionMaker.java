@@ -5,6 +5,8 @@ import static com.Util.sleep;
 import java.util.Map;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,7 @@ import io.reactivex.subjects.Subject;
 @Service
 public class DecisionMaker {
   @Autowired private EventExecutor eventExecutor;
+  private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
   public void startTakingDecision(
       Set<Map.Entry<String, Subject<Pair<Double, Double>>>> smaSlowList,
@@ -45,7 +48,8 @@ public class DecisionMaker {
                                         && !eventExecutor
                                             .getPosition()
                                             .getOrDefault(k.getKey(), "")
-                                            .equals("BUY"))
+                                            .equals("BUY")) {
+                                      logger.info("BUY " + k.getKey() + " == " + l);
                                       eventExecutor
                                           .getQueue()
                                           .add(
@@ -55,11 +59,12 @@ public class DecisionMaker {
                                                   new Pair<String, String>(
                                                       k.getKey(),
                                                       l.getValue().getValue().toString())));
-                                    else if (getResult(l.getKey(), l.getValue()) == -1
+                                    } else if (getResult(l.getKey(), l.getValue()) == -1
                                         && !eventExecutor
                                             .getPosition()
                                             .getOrDefault(k.getKey(), "")
-                                            .equals("SELL"))
+                                            .equals("SELL")) {
+                                      logger.info("SELL " + k.getKey() + " == " + l);
                                       eventExecutor
                                           .getQueue()
                                           .add(
@@ -69,6 +74,7 @@ public class DecisionMaker {
                                                   new Pair<String, String>(
                                                       k.getKey(),
                                                       l.getValue().getValue().toString())));
+                                    }
                                   }))
                   .forEach(System.err::print);
             })

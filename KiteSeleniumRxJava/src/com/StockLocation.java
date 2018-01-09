@@ -114,10 +114,10 @@ public class StockLocation {
   }
 
   public static String getMarketWatch(String name) {
-    return ((map.get(name) / 20)+2)+ "";
+    return ((map.get(name) / 20) + 2) + "";
   }
-  
+
   public static void main(String[] args) {
-	System.out.println(getMarketWatch("RECLTD"));
-}
+    System.out.println(getMarketWatch("RECLTD"));
+  }
 }

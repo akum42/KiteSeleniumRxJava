@@ -18,20 +18,20 @@ public class Stock {
     fiveMinuteAverage = new ArrayList<>();
   }
 
-  public String getStockName() {
-    return stockName;
-  }
-
-  public void setStockName(String stockName) {
-    this.stockName = stockName;
+  public List<Pair<String, Double>> getFiveMinuteAverage() {
+    return fiveMinuteAverage;
   }
 
   public Map<String, List<Double>> getMinuteAverage() {
     return minuteAverage;
   }
 
-  public List<Pair<String, Double>> getFiveMinuteAverage() {
-    return fiveMinuteAverage;
+  public String getStockName() {
+    return stockName;
+  }
+
+  public void setStockName(String stockName) {
+    this.stockName = stockName;
   }
 
   @Override

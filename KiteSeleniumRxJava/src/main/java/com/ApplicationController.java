@@ -1,7 +1,7 @@
 package com;
 
-import static com.Util.marketOpenTill;
-import static com.Util.orderPlaceTill;
+import static com.Util.isMarketOpen;
+import static com.Util.canOrder;
 import static com.Util.sleep;
 
 import java.util.Comparator;
@@ -20,68 +20,17 @@ import io.reactivex.subjects.Subject;
 @SpringBootApplication
 public class ApplicationController implements CommandLineRunner {
 
+  public static void main(String[] args) throws Exception {
+    SpringApplication.run(ApplicationController.class, args);
+  }
   @Autowired private StockRepository repository;
   @Autowired private EventExecutor eventExecutor;
   @Autowired private SMACalculator smaCalculator;
   @Autowired private DecisionMaker decisionMaker;
   @Autowired private CleanOrders cleanOrders;
   @Autowired private WebAction webAction;
+
   private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
-  public static void main(String[] args) throws Exception {
-    SpringApplication.run(ApplicationController.class, args);
-  }
-
-  @Override
-  public void run(String... args) throws Exception {
-    loadData();
-
-    if (orderPlaceTill() == 1) {
-      webAction.login(args[0], args[1], args[2], args[3]);
-
-      new Thread(
-              () -> {
-                while (true) {
-                  for (int i = 2; i <= 6; i++) {
-                    eventExecutor
-                        .getQueue()
-                        .add(
-                            new StockMessage(
-                                0, "ClickMarketWatch", new Pair<String, String>("", "" + i)));
-                    sleep(3000);
-                  }
-                }
-              })
-          .start();
-
-      eventExecutor.startExecution();
-      smaCalculator.startCalculation(eventExecutor.getResult());
-      System.out.println(Boolean.parseBoolean(args[4]));
-      if (Boolean.parseBoolean(args[4])) {
-        decisionMaker.startTakingDecision(
-            smaCalculator.getStockSMASlowPair().entrySet(),
-            smaCalculator.getStockSMAFastPair().entrySet());
-        cleanOrders.clearOldOrders();
-      }
-
-      new Thread(
-              () -> {
-                webAction.readPostion();
-              })
-          .start();
-    }
-    while (true) {
-      if (orderPlaceTill() > 0) sleep(1000 * 60 * 2);
-      else {
-        logger.info("Clear All Orders");
-        cleanOrders.clearAllOrders();
-      }
-      if (marketOpenTill() < 0) {
-        webAction.logout();
-        System.exit(0);
-      }
-    }
-  }
 
   private void clearOldData() {
     List<Stock> stockList = repository.findAll();
@@ -108,6 +57,57 @@ public class ApplicationController implements CommandLineRunner {
                         : k.getFiveMinuteAverage().size())
                 .forEach(
                     l -> sma_5.onNext(new Pair<String, Double>(k.getStockName(), l.getValue()))));
+  }
+
+  @Override
+  public void run(String... args) throws Exception {
+    loadData();
+
+    if (canOrder()) {
+      webAction.login(args[0], args[1], args[2], args[3]);
+
+      new Thread(
+              () -> {
+                while (true) {
+                  for (int i = 2; i <= 6; i++) {
+                    eventExecutor
+                        .getQueue()
+                        .add(
+                            new StockMessage(
+                                0, "ClickMarketWatch", new Pair<String, String>("", "" + i)));
+                    sleep(3000);
+                  }
+                }
+              })
+          .start();
+
+      eventExecutor.startExecution();
+      smaCalculator.startCalculation(eventExecutor.getResult());
+      if (Boolean.parseBoolean(args[4])) {
+        decisionMaker.startTakingDecision(
+            smaCalculator.getStockSMASlowPair().entrySet(),
+            smaCalculator.getStockSMAFastPair().entrySet());
+        cleanOrders.clearOldOrders();
+      }
+
+      new Thread(
+              () -> {
+                webAction.readPostion();
+              })
+          .start();
+    }
+    while (true) {
+      if (canOrder()) sleep(1000 * 60 * 2);
+      else {
+        logger.info("Clear All Orders");
+        cleanOrders.clearAllOrders();
+      }
+      if (!isMarketOpen()) {
+        webAction.logout();
+        System.exit(0);
+      }
+      sleep(1000 * 60 * 2);
+    }
   }
 }
 

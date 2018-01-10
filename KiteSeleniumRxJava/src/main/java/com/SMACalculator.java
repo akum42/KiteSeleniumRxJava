@@ -39,89 +39,6 @@ public class SMACalculator {
     stockSMAFastPair = new ConcurrentHashMap<>();
   }
 
-  public void startCalculation(Subject<Pair<String, String>> stockStream) {
-    calcSMAMinute(stockStream);
-    calcSMA5Minute();
-    calcSMASlow(sma_5_min);
-    calcSMAFast(sma_5_min);
-    calcSMASlowPair();
-    calcSMAFastPair();
-  }
-
-  public void startInitCalculation(Subject<Pair<String, Double>> sma_5) {
-    calcSMASlow(sma_5);
-    calcSMAFast(sma_5);
-    calcSMASlowPair();
-    calcSMAFastPair();
-  }
-
-  private void calcSMAFastPair() {
-    sma_fast
-        .groupBy(Pair::getKey)
-        .subscribe(
-            k ->
-                k.buffer(2, 1)
-                    .subscribe(
-                        l -> {
-                          stockSMAFastPair
-                              .computeIfAbsent(
-                                  k.getKey(), n -> BehaviorSubject.<Pair<Double, Double>>create())
-                              .onNext(new Pair<>(l.get(0).getValue(), l.get(1).getValue()));
-                        }));
-  }
-
-  private void calcSMASlowPair() {
-    sma_slow
-        .groupBy(Pair::getKey)
-        .subscribe(
-            k ->
-                k.buffer(2, 1)
-                    .subscribe(
-                        l -> {
-                          stockSMASlowPair
-                              .computeIfAbsent(
-                                  k.getKey(), n -> BehaviorSubject.<Pair<Double, Double>>create())
-                              .onNext(new Pair<>(l.get(0).getValue(), l.get(1).getValue()));
-                        }));
-  }
-
-  private void calcSMAFast(Subject<Pair<String, Double>> sma_5) {
-    sma_5
-        .groupBy(Pair::getKey)
-        .subscribe(
-            k ->
-                k.buffer(fast * slot, 1)
-                    .subscribe(
-                        l -> {
-                          Double d =
-                              l.stream().mapToDouble(e -> e.getValue()).average().getAsDouble();
-                          sma_fast.onNext(
-                              new Pair<String, Double>(l.get(0).getKey(), formatDouble(d)));
-
-                          logger.info("SMA fast --> " + l.get(0).getKey() + " " + formatDouble(d));
-                        }));
-  }
-
-  private Double formatDouble(Double d) {
-    return Math.round(d * 10.0) / 10.0;
-  }
-
-  private void calcSMASlow(Subject<Pair<String, Double>> sma_5) {
-    sma_5
-        .groupBy(Pair::getKey)
-        .subscribe(
-            k ->
-                k.buffer(slow * slot, 1)
-                    .subscribe(
-                        l -> {
-                          Double d =
-                              l.stream().mapToDouble(e -> e.getValue()).average().getAsDouble();
-                          sma_slow.onNext(
-                              new Pair<String, Double>(l.get(0).getKey(), formatDouble(d)));
-                          logger.info("SMA slow --> " + l.get(0).getKey() + " " + formatDouble(d));
-                        }));
-  }
-
   private void calcSMA5Minute() {
     sma_1_min
         .groupBy(Pair::getKey)
@@ -145,12 +62,36 @@ public class SMACalculator {
                         }));
   }
 
-  private String getTimeRange() {
-    return LocalDate.now().getDayOfYear()
-        + ":"
-        + LocalTime.now().getHour()
-        + ":"
-        + LocalTime.now().getMinute();
+  private void calcSMAFast(Subject<Pair<String, Double>> sma_5) {
+    sma_5
+        .groupBy(Pair::getKey)
+        .subscribe(
+            k ->
+                k.buffer(fast * slot, 1)
+                    .subscribe(
+                        l -> {
+                          Double d =
+                              l.stream().mapToDouble(e -> e.getValue()).average().getAsDouble();
+                          sma_fast.onNext(
+                              new Pair<String, Double>(l.get(0).getKey(), formatDouble(d)));
+
+                          logger.info("SMA fast --> " + l.get(0).getKey() + " " + formatDouble(d));
+                        }));
+  }
+
+  private void calcSMAFastPair() {
+    sma_fast
+        .groupBy(Pair::getKey)
+        .subscribe(
+            k ->
+                k.buffer(2, 1)
+                    .subscribe(
+                        l -> {
+                          stockSMAFastPair
+                              .computeIfAbsent(
+                                  k.getKey(), n -> BehaviorSubject.<Pair<Double, Double>>create())
+                              .onNext(new Pair<>(l.get(0).getValue(), l.get(1).getValue()));
+                        }));
   }
 
   private void calcSMAMinute(Subject<Pair<String, String>> stockStream) {
@@ -182,23 +123,82 @@ public class SMACalculator {
                         }));
   }
 
+  private void calcSMASlow(Subject<Pair<String, Double>> sma_5) {
+    sma_5
+        .groupBy(Pair::getKey)
+        .subscribe(
+            k ->
+                k.buffer(slow * slot, 1)
+                    .subscribe(
+                        l -> {
+                          Double d =
+                              l.stream().mapToDouble(e -> e.getValue()).average().getAsDouble();
+                          sma_slow.onNext(
+                              new Pair<String, Double>(l.get(0).getKey(), formatDouble(d)));
+                          logger.info("SMA slow --> " + l.get(0).getKey() + " " + formatDouble(d));
+                        }));
+  }
+
+  private void calcSMASlowPair() {
+    sma_slow
+        .groupBy(Pair::getKey)
+        .subscribe(
+            k ->
+                k.buffer(2, 1)
+                    .subscribe(
+                        l -> {
+                          stockSMASlowPair
+                              .computeIfAbsent(
+                                  k.getKey(), n -> BehaviorSubject.<Pair<Double, Double>>create())
+                              .onNext(new Pair<>(l.get(0).getValue(), l.get(1).getValue()));
+                        }));
+  }
+
   private String convertToRange(int number) {
     return "" + (number < 5 ? 0 : number / 5 == 0 ? number : (number / 5) * 5);
   }
 
-  public Map<String, Subject<Pair<Double, Double>>> getStockSMASlowPair() {
-    return stockSMASlowPair;
+  private Double formatDouble(Double d) {
+    return Math.round(d * 10.0) / 10.0;
   }
 
-  public Map<String, Subject<Pair<Double, Double>>> getStockSMAFastPair() {
-    return stockSMAFastPair;
+  public Subject<Pair<String, Double>> getSma_1_min() {
+    return sma_1_min;
   }
 
   public Subject<Pair<String, Double>> getSma_5_min() {
     return sma_5_min;
   }
 
-  public Subject<Pair<String, Double>> getSma_1_min() {
-    return sma_1_min;
+  public Map<String, Subject<Pair<Double, Double>>> getStockSMAFastPair() {
+    return stockSMAFastPair;
+  }
+
+  public Map<String, Subject<Pair<Double, Double>>> getStockSMASlowPair() {
+    return stockSMASlowPair;
+  }
+
+  private String getTimeRange() {
+    return LocalDate.now().getDayOfYear()
+        + ":"
+        + LocalTime.now().getHour()
+        + ":"
+        + LocalTime.now().getMinute();
+  }
+
+  public void startCalculation(Subject<Pair<String, String>> stockStream) {
+    calcSMAMinute(stockStream);
+    calcSMA5Minute();
+    calcSMASlow(sma_5_min);
+    calcSMAFast(sma_5_min);
+    calcSMASlowPair();
+    calcSMAFastPair();
+  }
+
+  public void startInitCalculation(Subject<Pair<String, Double>> sma_5) {
+    calcSMASlow(sma_5);
+    calcSMAFast(sma_5);
+    calcSMASlowPair();
+    calcSMAFastPair();
   }
 }

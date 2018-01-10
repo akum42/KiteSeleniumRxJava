@@ -17,6 +17,16 @@ public class DecisionMaker {
   @Autowired private EventExecutor eventExecutor;
   private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+  private int getResult(Pair<Double, Double> smaSlow, Pair<Double, Double> smaFast) {
+    Double smaSlow0 = smaSlow.getKey();
+    Double smaSlow1 = smaSlow.getValue();
+    Double smaFast0 = smaFast.getKey();
+    Double smaFast1 = smaFast.getValue();
+    return ((int) Math.signum(smaSlow0 - smaFast0) == (int) Math.signum(smaSlow1 - smaFast1))
+        ? 0
+        : (int) Math.signum(smaFast1 - smaSlow1);
+  }
+
   public void startTakingDecision(
       Set<Map.Entry<String, Subject<Pair<Double, Double>>>> smaSlowList,
       Set<Map.Entry<String, Subject<Pair<Double, Double>>>> smaFastList)
@@ -79,15 +89,5 @@ public class DecisionMaker {
                   .forEach(System.err::print);
             })
         .start();
-  }
-
-  private int getResult(Pair<Double, Double> smaSlow, Pair<Double, Double> smaFast) {
-    Double smaSlow0 = smaSlow.getKey();
-    Double smaSlow1 = smaSlow.getValue();
-    Double smaFast0 = smaFast.getKey();
-    Double smaFast1 = smaFast.getValue();
-    return ((int) Math.signum(smaSlow0 - smaFast0) == (int) Math.signum(smaSlow1 - smaFast1))
-        ? 0
-        : (int) Math.signum(smaFast1 - smaSlow1);
   }
 }

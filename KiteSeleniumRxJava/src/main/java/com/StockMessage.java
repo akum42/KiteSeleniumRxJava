@@ -12,15 +12,15 @@ public class StockMessage {
     this.pair = pair;
   }
 
-  public int getPriority() {
-    return priority;
+  public String getMessage() {
+    return message;
   }
 
   public Pair<String, String> getPair() {
     return pair;
   }
 
-  public String getMessage() {
-    return message;
+  public int getPriority() {
+    return priority;
   }
 }

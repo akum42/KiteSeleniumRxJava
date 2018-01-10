@@ -9,6 +9,17 @@ import org.springframework.stereotype.Service;
 public class CleanOrders {
   @Autowired private EventExecutor eventExecutor;
 
+  public void clearAllOrders() throws Exception {
+
+    new Thread(
+            () -> {
+              eventExecutor
+                  .getQueue()
+                  .add(new StockMessage(Integer.MIN_VALUE, "ClearAllOrders", null));
+            })
+        .start();
+  }
+
   public void clearOldOrders() throws Exception {
 
     new Thread(
@@ -18,19 +29,6 @@ public class CleanOrders {
                 eventExecutor
                     .getQueue()
                     .add(new StockMessage(Integer.MIN_VALUE, "ClearOldOrders", null));
-              }
-            })
-        .start();
-  }
-
-  public void clearAllOrders() throws Exception {
-
-    new Thread(
-            () -> {
-              while (true) {
-                eventExecutor
-                    .getQueue()
-                    .add(new StockMessage(Integer.MIN_VALUE, "ClearAllOrders", null));
               }
             })
         .start();

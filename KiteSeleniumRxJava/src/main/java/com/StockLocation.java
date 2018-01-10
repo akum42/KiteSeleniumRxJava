@@ -109,15 +109,11 @@ public class StockLocation {
     map.put("VOLTAS", 100);
   }
 
-  public static String getPosition(String name) {
-    return ((map.get(name) % 20) == 0 ? 20 : +(map.get(name) % 20)) + "";
-  }
-
   public static String getMarketWatch(String name) {
     return ((map.get(name) / 20) + 2) + "";
   }
 
-  public static void main(String[] args) {
-    System.out.println(getMarketWatch("RECLTD"));
+  public static String getPosition(String name) {
+    return ((map.get(name) % 20) == 0 ? 20 : +(map.get(name) % 20)) + "";
   }
 }

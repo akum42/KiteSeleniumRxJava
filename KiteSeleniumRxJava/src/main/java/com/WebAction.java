@@ -32,7 +32,7 @@ public class WebAction {
   private String webDriverString;
 
   private WebAction() {
-    System.setProperty("webdriver.chrome.driver", "e:\\chromedriver.exe");
+    System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
     driver = new ChromeDriver();
     String baseUrl = "https://kite.zerodha.com/";
     driver.get(baseUrl);

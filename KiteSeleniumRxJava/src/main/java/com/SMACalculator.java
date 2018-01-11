@@ -2,13 +2,10 @@ package com;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +21,6 @@ public class SMACalculator {
   private final Subject<Pair<String, Double>> sma_fast;
   private final Map<String, Subject<Pair<Double, Double>>> stockSMASlowPair;
   private final Map<String, Subject<Pair<Double, Double>>> stockSMAFastPair;
-  private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
   private final int slow = 31;
   private final int fast = 3;
@@ -57,7 +53,7 @@ public class SMACalculator {
                                   ? repository.findByStockName(stockName)
                                   : new Stock();
                           stock.setStockName(stockName);
-                          stock.getFiveMinuteAverage().add(new Pair<>(getTimeRange(), d));
+                          stock.getFiveMinuteAverage().put(getTimeRange(), d);
                           repository.save(stock);
                         }));
   }
@@ -74,8 +70,6 @@ public class SMACalculator {
                               l.stream().mapToDouble(e -> e.getValue()).average().getAsDouble();
                           sma_fast.onNext(
                               new Pair<String, Double>(l.get(0).getKey(), formatDouble(d)));
-
-                          logger.info("SMA fast --> " + l.get(0).getKey() + " " + formatDouble(d));
                         }));
   }
 
@@ -84,13 +78,13 @@ public class SMACalculator {
         .groupBy(Pair::getKey)
         .subscribe(
             k ->
-                k.buffer(2, 1)
+                k.buffer(6, 1)
                     .subscribe(
                         l -> {
                           stockSMAFastPair
                               .computeIfAbsent(
                                   k.getKey(), n -> BehaviorSubject.<Pair<Double, Double>>create())
-                              .onNext(new Pair<>(l.get(0).getValue(), l.get(1).getValue()));
+                              .onNext(new Pair<>(l.get(0).getValue(), l.get(5).getValue()));
                         }));
   }
 
@@ -115,10 +109,7 @@ public class SMACalculator {
                                   ? repository.findByStockName(stockName)
                                   : new Stock();
                           stock.setStockName(stockName);
-                          stock
-                              .getMinuteAverage()
-                              .computeIfAbsent(getTimeRange(), a -> new ArrayList<Double>())
-                              .add(d);
+                          stock.getMinuteAverage().put(getTimeRange(), d);
                           repository.save(stock);
                         }));
   }
@@ -135,7 +126,6 @@ public class SMACalculator {
                               l.stream().mapToDouble(e -> e.getValue()).average().getAsDouble();
                           sma_slow.onNext(
                               new Pair<String, Double>(l.get(0).getKey(), formatDouble(d)));
-                          logger.info("SMA slow --> " + l.get(0).getKey() + " " + formatDouble(d));
                         }));
   }
 
@@ -144,13 +134,13 @@ public class SMACalculator {
         .groupBy(Pair::getKey)
         .subscribe(
             k ->
-                k.buffer(2, 1)
+                k.buffer(6, 1)
                     .subscribe(
                         l -> {
                           stockSMASlowPair
                               .computeIfAbsent(
                                   k.getKey(), n -> BehaviorSubject.<Pair<Double, Double>>create())
-                              .onNext(new Pair<>(l.get(0).getValue(), l.get(1).getValue()));
+                              .onNext(new Pair<>(l.get(0).getValue(), l.get(5).getValue()));
                         }));
   }
 

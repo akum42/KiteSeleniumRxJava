@@ -18,9 +18,9 @@ import io.reactivex.subjects.Subject;
 @Service
 public class EventExecutor {
 
-  private static final double target = 0.005;
+  private static final double target = 0.0068;
 
-  private static final double stopLoss = 0.0025;
+  private static final double stopLoss = 0.0031;
   @Autowired private WebAction webAction;
   private final PriorityBlockingQueue<StockMessage> queue;
   private final Subject<Pair<String, String>> result;

@@ -1,7 +1,5 @@
 package com;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -10,19 +8,19 @@ import org.springframework.data.annotation.Id;
 public class Stock {
 
   @Id private String stockName;
-  private final Map<String, List<Double>> minuteAverage;
-  private final List<Pair<String, Double>> fiveMinuteAverage;
+  private final Map<String, Double> minuteAverage;
+  private final Map<String, Double> fiveMinuteAverage;
 
   public Stock() {
     minuteAverage = new ConcurrentHashMap<>();
-    fiveMinuteAverage = new ArrayList<>();
+    fiveMinuteAverage = new ConcurrentHashMap<>();
   }
 
-  public List<Pair<String, Double>> getFiveMinuteAverage() {
+  public Map<String, Double> getFiveMinuteAverage() {
     return fiveMinuteAverage;
   }
 
-  public Map<String, List<Double>> getMinuteAverage() {
+  public Map<String, Double> getMinuteAverage() {
     return minuteAverage;
   }
 

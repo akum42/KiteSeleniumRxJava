@@ -1,7 +1,7 @@
 package com;
 
-import static com.Util.isMarketOpen;
 import static com.Util.canOrder;
+import static com.Util.isMarketOpen;
 import static com.Util.sleep;
 
 import java.util.Comparator;
@@ -20,15 +20,16 @@ import io.reactivex.subjects.Subject;
 @SpringBootApplication
 public class ApplicationController implements CommandLineRunner {
 
-  public static void main(String[] args) throws Exception {
-    SpringApplication.run(ApplicationController.class, args);
-  }
   @Autowired private StockRepository repository;
   @Autowired private EventExecutor eventExecutor;
   @Autowired private SMACalculator smaCalculator;
   @Autowired private DecisionMaker decisionMaker;
   @Autowired private CleanOrders cleanOrders;
   @Autowired private WebAction webAction;
+
+  public static void main(String[] args) throws Exception {
+    SpringApplication.run(ApplicationController.class, args);
+  }
 
   private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -50,6 +51,7 @@ public class ApplicationController implements CommandLineRunner {
     stockList.forEach(
         k ->
             k.getFiveMinuteAverage()
+                .entrySet()
                 .stream()
                 .skip(
                     k.getFiveMinuteAverage().size() - 32 * 5 > 0
@@ -63,50 +65,52 @@ public class ApplicationController implements CommandLineRunner {
   public void run(String... args) throws Exception {
     loadData();
 
-    if (canOrder()) {
-      webAction.login(args[0], args[1], args[2], args[3]);
+    if (isMarketOpen()) {
+      if (canOrder()) {
+        webAction.login(args[0], args[1], args[2], args[3]);
 
-      new Thread(
-              () -> {
-                while (true) {
-                  for (int i = 2; i <= 6; i++) {
-                    eventExecutor
-                        .getQueue()
-                        .add(
-                            new StockMessage(
-                                0, "ClickMarketWatch", new Pair<String, String>("", "" + i)));
-                    sleep(3000);
+        new Thread(
+                () -> {
+                  while (true) {
+                    for (int i = 2; i <= 6; i++) {
+                      eventExecutor
+                          .getQueue()
+                          .add(
+                              new StockMessage(
+                                  0, "ClickMarketWatch", new Pair<String, String>("", "" + i)));
+                      sleep(3000);
+                    }
                   }
-                }
-              })
-          .start();
+                })
+            .start();
 
-      eventExecutor.startExecution();
-      smaCalculator.startCalculation(eventExecutor.getResult());
-      if (Boolean.parseBoolean(args[4])) {
-        decisionMaker.startTakingDecision(
-            smaCalculator.getStockSMASlowPair().entrySet(),
-            smaCalculator.getStockSMAFastPair().entrySet());
-        cleanOrders.clearOldOrders();
-      }
+        eventExecutor.startExecution();
+        smaCalculator.startCalculation(eventExecutor.getResult());
+        if (Boolean.parseBoolean(args[4])) {
+          decisionMaker.startTakingDecision(
+              smaCalculator.getStockSMASlowPair().entrySet(),
+              smaCalculator.getStockSMAFastPair().entrySet());
+          cleanOrders.clearOldOrders();
+        }
 
-      new Thread(
-              () -> {
-                webAction.readPostion();
-              })
-          .start();
-    }
-    while (true) {
-      if (canOrder()) sleep(1000 * 60 * 2);
-      else {
-        logger.info("Clear All Orders");
-        cleanOrders.clearAllOrders();
+        new Thread(
+                () -> {
+                  webAction.readPostion();
+                })
+            .start();
       }
-      if (!isMarketOpen()) {
-        webAction.logout();
-        System.exit(0);
+      while (true) {
+        if (canOrder()) sleep(1000 * 60 * 2);
+        else {
+          logger.info("Clear All Orders");
+          cleanOrders.clearAllOrders();
+        }
+        if (!isMarketOpen()) {
+          webAction.logout();
+          //System.exit(0);
+        }
+        sleep(1000 * 60 * 2);
       }
-      sleep(1000 * 60 * 2);
     }
   }
 }

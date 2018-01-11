@@ -90,4 +90,10 @@ public class DecisionMaker {
             })
         .start();
   }
+
+  public static void main(String[] args) {
+    System.out.println(Math.signum(10 - 11));
+    System.out.println(Math.signum(10 - 10));
+    System.out.println(Math.signum(11 - 10));
+  }
 }

@@ -1,7 +1,8 @@
 package com;
 
-import static com.Util.*;
+import static com.Util.sleep;
 import static java.time.temporal.ChronoUnit.MINUTES;
+
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;

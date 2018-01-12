@@ -10,10 +10,22 @@ public class Stock {
   @Id private String stockName;
   private final Map<String, Double> minuteAverage;
   private final Map<String, Double> fiveMinuteAverage;
+  private final Map<String, Double> fastMovingAverage;
+  private final Map<String, Double> slowMovingAverage;
 
   public Stock() {
     minuteAverage = new ConcurrentHashMap<>();
     fiveMinuteAverage = new ConcurrentHashMap<>();
+    fastMovingAverage = new ConcurrentHashMap<>();
+    slowMovingAverage = new ConcurrentHashMap<>();
+  }
+
+  public Map<String, Double> getFastMovingAverage() {
+    return fastMovingAverage;
+  }
+
+  public Map<String, Double> getSlowMovingAverage() {
+    return slowMovingAverage;
   }
 
   public Map<String, Double> getFiveMinuteAverage() {
@@ -40,6 +52,10 @@ public class Stock {
         + minuteAverage
         + ", fiveMinuteAverage="
         + fiveMinuteAverage
+        + ", fastMovingAverage="
+        + fastMovingAverage
+        + ", slowMovingAverage="
+        + slowMovingAverage
         + "]";
   }
 }

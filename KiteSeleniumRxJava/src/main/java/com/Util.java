@@ -13,7 +13,7 @@ public class Util {
                 * LocalTime.now().compareTo(LocalTime.of(9, 15))
             > 0
         ? true
-        : false;
+        : true;
   }
 
   public static boolean canOrder() {
@@ -21,7 +21,7 @@ public class Util {
                 * LocalTime.now().compareTo(LocalTime.of(9, 15))
             > 0
         ? true
-        : false;
+        : true;
   }
 
   public static final void sleep(long millis) {

@@ -507,3 +507,269 @@ Session ID: 2e159b172497e97cc082e7e77f9a0d78
 2018-01-11 20:48:12.963  INFO 215016 --- [http-nio-8090-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
 2018-01-11 20:48:12.963  INFO 215016 --- [http-nio-8090-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization started
 2018-01-11 20:48:12.983  INFO 215016 --- [http-nio-8090-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization completed in 19 ms
+2018-01-11 21:54:38.872  INFO 264776 --- [main] com.ApplicationController                : Starting ApplicationController on IN-8L1DXF2 with PID 264776 (E:\workspace\KiteSeleniumRxJava\KiteSeleniumRxJava\target\classes started by amit.a.kumar in E:\workspace\KiteSeleniumRxJava\KiteSeleniumRxJava)
+2018-01-11 21:54:38.874  INFO 264776 --- [main] com.ApplicationController                : No active profile set, falling back to default profiles: default
+2018-01-11 21:54:38.913  INFO 264776 --- [main] ationConfigEmbeddedWebApplicationContext : Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@7d68ef40: startup date [Thu Jan 11 21:54:38 IST 2018]; root of context hierarchy
+2018-01-11 21:54:42.987  INFO 264776 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat initialized with port(s): 8090 (http)
+2018-01-11 21:54:42.998  INFO 264776 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2018-01-11 21:54:43.000  INFO 264776 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.23
+2018-01-11 21:54:43.119  INFO 264776 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2018-01-11 21:54:43.120  INFO 264776 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 4209 ms
+2018-01-11 21:54:43.235  INFO 264776 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2018-01-11 21:54:43.239  INFO 264776 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2018-01-11 21:54:43.239  INFO 264776 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2018-01-11 21:54:43.239  INFO 264776 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2018-01-11 21:54:43.239  INFO 264776 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2018-01-11 21:54:43.885  INFO 264776 --- [main] org.mongodb.driver.cluster               : Cluster created with settings {hosts=[localhost:27017], mode=SINGLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+2018-01-11 21:54:43.947  INFO 264776 --- [cluster-ClusterId{value='5a578fcb42cf4a0a48d3b137', description='null'}-localhost:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:1, serverValue:9}] to localhost:27017
+2018-01-11 21:54:43.948  INFO 264776 --- [cluster-ClusterId{value='5a578fcb42cf4a0a48d3b137', description='null'}-localhost:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 6, 0]}, minWireVersion=0, maxWireVersion=6, maxDocumentSize=16777216, roundTripTimeNanos=526726}
+2018-01-11 21:54:48.957  INFO 264776 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@7d68ef40: startup date [Thu Jan 11 21:54:38 IST 2018]; root of context hierarchy
+2018-01-11 21:54:49.008  INFO 264776 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/data/{stockName}]}" onto public com.Stock com.DataController.greeting(java.lang.String)
+2018-01-11 21:54:49.012  INFO 264776 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2018-01-11 21:54:49.012  INFO 264776 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-01-11 21:54:49.041  INFO 264776 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-01-11 21:54:49.041  INFO 264776 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-01-11 21:54:49.072  INFO 264776 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-01-11 21:54:49.204  INFO 264776 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2018-01-11 21:54:49.260  INFO 264776 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat started on port(s): 8090 (http)
+2018-01-11 21:54:49.294  INFO 264776 --- [main] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:2, serverValue:10}] to localhost:27017
+2018-01-11 21:54:49.363  INFO 264776 --- [main] utoConfigurationReportLoggingInitializer : 
+
+Error starting ApplicationContext. To display the auto-configuration report re-run your application with 'debug' enabled.
+2018-01-11 21:54:49.371 ERROR 264776 --- [main] o.s.boot.SpringApplication               : Application startup failed
+
+java.lang.IllegalStateException: Failed to execute CommandLineRunner
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:735) [spring-boot-1.5.9.RELEASE.jar:1.5.9.RELEASE]
+	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:716) [spring-boot-1.5.9.RELEASE.jar:1.5.9.RELEASE]
+	at org.springframework.boot.SpringApplication.afterRefresh(SpringApplication.java:703) [spring-boot-1.5.9.RELEASE.jar:1.5.9.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:304) [spring-boot-1.5.9.RELEASE.jar:1.5.9.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1118) [spring-boot-1.5.9.RELEASE.jar:1.5.9.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1107) [spring-boot-1.5.9.RELEASE.jar:1.5.9.RELEASE]
+	at com.ApplicationController.main(ApplicationController.java:31) [classes/:na]
+Caused by: org.springframework.data.mapping.model.MappingException: Cannot convert [ 127.45] of type class com.mongodb.BasicDBList into an instance of class java.lang.Double! Implement a custom Converter<class com.mongodb.BasicDBList, class java.lang.Double> and register it with the CustomConversions. Parent object was: Stock [stockName=ASHOKLEY, minuteAverage={}, fiveMinuteAverage={}, fastMovingAverage={}, slowMovingAverage={}]
+	at org.springframework.data.mongodb.core.convert.MappingMongoConverter.read(MappingMongoConverter.java:229) ~[spring-data-mongodb-1.10.9.RELEASE.jar:na]
+	at org.springframework.data.mongodb.core.convert.MappingMongoConverter.readMap(MappingMongoConverter.java:977) ~[spring-data-mongodb-1.10.9.RELEASE.jar:na]
+	at org.springframework.data.mongodb.core.convert.MappingMongoConverter.read(MappingMongoConverter.java:225) ~[spring-data-mongodb-1.10.9.RELEASE.jar:na]
+	at org.springframework.data.mongodb.core.convert.MappingMongoConverter.readValue(MappingMongoConverter.java:1222) ~[spring-data-mongodb-1.10.9.RELEASE.jar:na]
+	at org.springframework.data.mongodb.core.convert.MappingMongoConverter.access$200(MappingMongoConverter.java:85) ~[spring-data-mongodb-1.10.9.RELEASE.jar:na]
+	at org.springframework.data.mongodb.core.convert.MappingMongoConverter$MongoDbPropertyValueProvider.getPropertyValue(MappingMongoConverter.java:1170) ~[spring-data-mongodb-1.10.9.RELEASE.jar:na]
+	at org.springframework.data.mongodb.core.convert.MappingMongoConverter.getValueInternal(MappingMongoConverter.java:880) ~[spring-data-mongodb-1.10.9.RELEASE.jar:na]
+	at org.springframework.data.mongodb.core.convert.MappingMongoConverter$1.doWithPersistentProperty(MappingMongoConverter.java:291) ~[spring-data-mongodb-1.10.9.RELEASE.jar:na]
+	at org.springframework.data.mongodb.core.convert.MappingMongoConverter$1.doWithPersistentProperty(MappingMongoConverter.java:279) ~[spring-data-mongodb-1.10.9.RELEASE.jar:na]
+	at org.springframework.data.mapping.model.BasicPersistentEntity.doWithProperties(BasicPersistentEntity.java:330) ~[spring-data-commons-1.13.9.RELEASE.jar:na]
+	at org.springframework.data.mongodb.core.convert.MappingMongoConverter.read(MappingMongoConverter.java:279) ~[spring-data-mongodb-1.10.9.RELEASE.jar:na]
+	at org.springframework.data.mongodb.core.convert.MappingMongoConverter.read(MappingMongoConverter.java:239) ~[spring-data-mongodb-1.10.9.RELEASE.jar:na]
+	at org.springframework.data.mongodb.core.convert.MappingMongoConverter.read(MappingMongoConverter.java:199) ~[spring-data-mongodb-1.10.9.RELEASE.jar:na]
+	at org.springframework.data.mongodb.core.convert.MappingMongoConverter.read(MappingMongoConverter.java:195) ~[spring-data-mongodb-1.10.9.RELEASE.jar:na]
+	at org.springframework.data.mongodb.core.convert.MappingMongoConverter.read(MappingMongoConverter.java:85) ~[spring-data-mongodb-1.10.9.RELEASE.jar:na]
+	at org.springframework.data.mongodb.core.MongoTemplate$ReadDbObjectCallback.doWith(MongoTemplate.java:2324) ~[spring-data-mongodb-1.10.9.RELEASE.jar:na]
+	at org.springframework.data.mongodb.core.MongoTemplate.executeFindMultiInternal(MongoTemplate.java:1969) ~[spring-data-mongodb-1.10.9.RELEASE.jar:na]
+	at org.springframework.data.mongodb.core.MongoTemplate.doFind(MongoTemplate.java:1787) ~[spring-data-mongodb-1.10.9.RELEASE.jar:na]
+	at org.springframework.data.mongodb.core.MongoTemplate.doFind(MongoTemplate.java:1770) ~[spring-data-mongodb-1.10.9.RELEASE.jar:na]
+	at org.springframework.data.mongodb.core.MongoTemplate.find(MongoTemplate.java:644) ~[spring-data-mongodb-1.10.9.RELEASE.jar:na]
+	at org.springframework.data.mongodb.repository.support.SimpleMongoRepository.findAll(SimpleMongoRepository.java:359) ~[spring-data-mongodb-1.10.9.RELEASE.jar:na]
+	at org.springframework.data.mongodb.repository.support.SimpleMongoRepository.findAll(SimpleMongoRepository.java:197) ~[spring-data-mongodb-1.10.9.RELEASE.jar:na]
+	at org.springframework.data.mongodb.repository.support.SimpleMongoRepository.findAll(SimpleMongoRepository.java:51) ~[spring-data-mongodb-1.10.9.RELEASE.jar:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_151]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_151]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_151]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[na:1.8.0_151]
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$QueryExecutorMethodInterceptor.executeMethodOn(RepositoryFactorySupport.java:520) ~[spring-data-commons-1.13.9.RELEASE.jar:na]
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$QueryExecutorMethodInterceptor.doInvoke(RepositoryFactorySupport.java:505) ~[spring-data-commons-1.13.9.RELEASE.jar:na]
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$QueryExecutorMethodInterceptor.invoke(RepositoryFactorySupport.java:477) ~[spring-data-commons-1.13.9.RELEASE.jar:na]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.springframework.data.projection.DefaultMethodInvokingMethodInterceptor.invoke(DefaultMethodInvokingMethodInterceptor.java:56) ~[spring-data-commons-1.13.9.RELEASE.jar:na]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:92) ~[spring-aop-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.springframework.data.repository.core.support.SurroundingTransactionDetectorMethodInterceptor.invoke(SurroundingTransactionDetectorMethodInterceptor.java:57) ~[spring-data-commons-1.13.9.RELEASE.jar:na]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:213) ~[spring-aop-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at com.sun.proxy.$Proxy65.findAll(Unknown Source) ~[na:na]
+	at com.ApplicationController.loadData(ApplicationController.java:48) [classes/:na]
+	at com.ApplicationController.run(ApplicationController.java:66) [classes/:na]
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:732) [spring-boot-1.5.9.RELEASE.jar:1.5.9.RELEASE]
+	... 6 common frames omitted
+
+2018-01-11 21:54:49.372  INFO 264776 --- [main] ationConfigEmbeddedWebApplicationContext : Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@7d68ef40: startup date [Thu Jan 11 21:54:38 IST 2018]; root of context hierarchy
+2018-01-11 21:54:49.373  INFO 264776 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown
+2018-01-11 21:54:49.376  INFO 264776 --- [main] org.mongodb.driver.connection            : Closed connection [connectionId{localValue:2, serverValue:10}] to localhost:27017 because the pool has been closed.
+2018-01-11 21:56:37.476  INFO 271212 --- [main] com.ApplicationController                : Starting ApplicationController on IN-8L1DXF2 with PID 271212 (E:\workspace\KiteSeleniumRxJava\KiteSeleniumRxJava\target\classes started by amit.a.kumar in E:\workspace\KiteSeleniumRxJava\KiteSeleniumRxJava)
+2018-01-11 21:56:37.478  INFO 271212 --- [main] com.ApplicationController                : No active profile set, falling back to default profiles: default
+2018-01-11 21:56:37.518  INFO 271212 --- [main] ationConfigEmbeddedWebApplicationContext : Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@7d68ef40: startup date [Thu Jan 11 21:56:37 IST 2018]; root of context hierarchy
+2018-01-11 21:56:41.624  INFO 271212 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat initialized with port(s): 8090 (http)
+2018-01-11 21:56:41.637  INFO 271212 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2018-01-11 21:56:41.638  INFO 271212 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.23
+2018-01-11 21:56:41.758  INFO 271212 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2018-01-11 21:56:41.759  INFO 271212 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 4243 ms
+2018-01-11 21:56:41.901  INFO 271212 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2018-01-11 21:56:41.904  INFO 271212 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2018-01-11 21:56:41.905  INFO 271212 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2018-01-11 21:56:41.905  INFO 271212 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2018-01-11 21:56:41.905  INFO 271212 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2018-01-11 21:56:42.515  INFO 271212 --- [main] org.mongodb.driver.cluster               : Cluster created with settings {hosts=[localhost:27017], mode=SINGLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+2018-01-11 21:56:42.572  INFO 271212 --- [cluster-ClusterId{value='5a57904242cf4a236c9fd502', description='null'}-localhost:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:1, serverValue:16}] to localhost:27017
+2018-01-11 21:56:42.574  INFO 271212 --- [cluster-ClusterId{value='5a57904242cf4a236c9fd502', description='null'}-localhost:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 6, 0]}, minWireVersion=0, maxWireVersion=6, maxDocumentSize=16777216, roundTripTimeNanos=838230}
+2018-01-11 21:56:50.288  INFO 271212 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@7d68ef40: startup date [Thu Jan 11 21:56:37 IST 2018]; root of context hierarchy
+2018-01-11 21:56:50.340  INFO 271212 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/data/{stockName}]}" onto public com.Stock com.DataController.greeting(java.lang.String)
+2018-01-11 21:56:50.343  INFO 271212 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2018-01-11 21:56:50.343  INFO 271212 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-01-11 21:56:50.372  INFO 271212 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-01-11 21:56:50.372  INFO 271212 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-01-11 21:56:50.401  INFO 271212 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-01-11 21:56:50.530  INFO 271212 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2018-01-11 21:56:50.589  INFO 271212 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat started on port(s): 8090 (http)
+2018-01-11 21:56:50.620  INFO 271212 --- [main] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:2, serverValue:17}] to localhost:27017
+2018-01-11 21:56:50.676  INFO 271212 --- [main] com.ApplicationController                : Started ApplicationController in 13.438 seconds (JVM running for 13.794)
+2018-01-11 21:56:50.750  INFO 271212 --- [http-nio-8090-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2018-01-11 21:56:50.750  INFO 271212 --- [http-nio-8090-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization started
+2018-01-11 21:56:50.767  INFO 271212 --- [http-nio-8090-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization completed in 17 ms
+2018-01-11 21:57:52.670  INFO 269208 --- [main] com.ApplicationController                : Starting ApplicationController on IN-8L1DXF2 with PID 269208 (E:\workspace\KiteSeleniumRxJava\KiteSeleniumRxJava\target\classes started by amit.a.kumar in E:\workspace\KiteSeleniumRxJava\KiteSeleniumRxJava)
+2018-01-11 21:57:52.672  INFO 269208 --- [main] com.ApplicationController                : No active profile set, falling back to default profiles: default
+2018-01-11 21:57:52.711  INFO 269208 --- [main] ationConfigEmbeddedWebApplicationContext : Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@7d68ef40: startup date [Thu Jan 11 21:57:52 IST 2018]; root of context hierarchy
+2018-01-11 21:57:56.739  INFO 269208 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat initialized with port(s): 8090 (http)
+2018-01-11 21:57:56.750  INFO 269208 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2018-01-11 21:57:56.751  INFO 269208 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.23
+2018-01-11 21:57:56.874  INFO 269208 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2018-01-11 21:57:56.875  INFO 269208 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 4166 ms
+2018-01-11 21:57:56.999  INFO 269208 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2018-01-11 21:57:57.003  INFO 269208 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2018-01-11 21:57:57.004  INFO 269208 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2018-01-11 21:57:57.004  INFO 269208 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2018-01-11 21:57:57.004  INFO 269208 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2018-01-11 21:57:57.588  INFO 269208 --- [main] org.mongodb.driver.cluster               : Cluster created with settings {hosts=[localhost:27017], mode=SINGLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+2018-01-11 21:57:57.642  INFO 269208 --- [cluster-ClusterId{value='5a57908d42cf4a1b98223526', description='null'}-localhost:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:1, serverValue:18}] to localhost:27017
+2018-01-11 21:57:57.644  INFO 269208 --- [cluster-ClusterId{value='5a57908d42cf4a1b98223526', description='null'}-localhost:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 6, 0]}, minWireVersion=0, maxWireVersion=6, maxDocumentSize=16777216, roundTripTimeNanos=694372}
+2018-01-11 21:58:02.764  INFO 269208 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@7d68ef40: startup date [Thu Jan 11 21:57:52 IST 2018]; root of context hierarchy
+2018-01-11 21:58:02.823  INFO 269208 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/data/{stockName}]}" onto public com.Stock com.DataController.greeting(java.lang.String)
+2018-01-11 21:58:02.828  INFO 269208 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2018-01-11 21:58:02.828  INFO 269208 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-01-11 21:58:02.853  INFO 269208 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-01-11 21:58:02.853  INFO 269208 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-01-11 21:58:02.882  INFO 269208 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-01-11 21:58:03.018  INFO 269208 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2018-01-11 21:58:03.044 ERROR 269208 --- [main] o.a.coyote.http11.Http11NioProtocol      : Failed to start end point associated with ProtocolHandler ["http-nio-8090"]
+
+java.net.BindException: Address already in use: bind
+	at sun.nio.ch.Net.bind0(Native Method) ~[na:1.8.0_151]
+	at sun.nio.ch.Net.bind(Net.java:433) ~[na:1.8.0_151]
+	at sun.nio.ch.Net.bind(Net.java:425) ~[na:1.8.0_151]
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:223) ~[na:1.8.0_151]
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74) ~[na:1.8.0_151]
+	at org.apache.tomcat.util.net.NioEndpoint.bind(NioEndpoint.java:210) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.tomcat.util.net.AbstractEndpoint.start(AbstractEndpoint.java:990) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.coyote.AbstractProtocol.start(AbstractProtocol.java:635) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:1022) [tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150) [tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.catalina.core.StandardService.addConnector(StandardService.java:225) [tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer.addPreviouslyRemovedConnectors(TomcatEmbeddedServletContainer.java:250) [spring-boot-1.5.9.RELEASE.jar:1.5.9.RELEASE]
+	at org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer.start(TomcatEmbeddedServletContainer.java:193) [spring-boot-1.5.9.RELEASE.jar:1.5.9.RELEASE]
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.startEmbeddedServletContainer(EmbeddedWebApplicationContext.java:297) [spring-boot-1.5.9.RELEASE.jar:1.5.9.RELEASE]
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.finishRefresh(EmbeddedWebApplicationContext.java:145) [spring-boot-1.5.9.RELEASE.jar:1.5.9.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:546) [spring-context-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.refresh(EmbeddedWebApplicationContext.java:122) [spring-boot-1.5.9.RELEASE.jar:1.5.9.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:693) [spring-boot-1.5.9.RELEASE.jar:1.5.9.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:360) [spring-boot-1.5.9.RELEASE.jar:1.5.9.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:303) [spring-boot-1.5.9.RELEASE.jar:1.5.9.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1118) [spring-boot-1.5.9.RELEASE.jar:1.5.9.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1107) [spring-boot-1.5.9.RELEASE.jar:1.5.9.RELEASE]
+	at com.ApplicationController.main(ApplicationController.java:31) [classes/:na]
+
+2018-01-11 21:58:03.045 ERROR 269208 --- [main] o.apache.catalina.core.StandardService   : Failed to start connector [Connector[HTTP/1.1-8090]]
+
+org.apache.catalina.LifecycleException: Failed to start component [Connector[HTTP/1.1-8090]]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:167) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.catalina.core.StandardService.addConnector(StandardService.java:225) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer.addPreviouslyRemovedConnectors(TomcatEmbeddedServletContainer.java:250) [spring-boot-1.5.9.RELEASE.jar:1.5.9.RELEASE]
+	at org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer.start(TomcatEmbeddedServletContainer.java:193) [spring-boot-1.5.9.RELEASE.jar:1.5.9.RELEASE]
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.startEmbeddedServletContainer(EmbeddedWebApplicationContext.java:297) [spring-boot-1.5.9.RELEASE.jar:1.5.9.RELEASE]
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.finishRefresh(EmbeddedWebApplicationContext.java:145) [spring-boot-1.5.9.RELEASE.jar:1.5.9.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:546) [spring-context-4.3.13.RELEASE.jar:4.3.13.RELEASE]
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.refresh(EmbeddedWebApplicationContext.java:122) [spring-boot-1.5.9.RELEASE.jar:1.5.9.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:693) [spring-boot-1.5.9.RELEASE.jar:1.5.9.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:360) [spring-boot-1.5.9.RELEASE.jar:1.5.9.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:303) [spring-boot-1.5.9.RELEASE.jar:1.5.9.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1118) [spring-boot-1.5.9.RELEASE.jar:1.5.9.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1107) [spring-boot-1.5.9.RELEASE.jar:1.5.9.RELEASE]
+	at com.ApplicationController.main(ApplicationController.java:31) [classes/:na]
+Caused by: org.apache.catalina.LifecycleException: service.getName(): "Tomcat";  Protocol handler start failed
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:1031) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	... 13 common frames omitted
+Caused by: java.net.BindException: Address already in use: bind
+	at sun.nio.ch.Net.bind0(Native Method) ~[na:1.8.0_151]
+	at sun.nio.ch.Net.bind(Net.java:433) ~[na:1.8.0_151]
+	at sun.nio.ch.Net.bind(Net.java:425) ~[na:1.8.0_151]
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:223) ~[na:1.8.0_151]
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74) ~[na:1.8.0_151]
+	at org.apache.tomcat.util.net.NioEndpoint.bind(NioEndpoint.java:210) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.tomcat.util.net.AbstractEndpoint.start(AbstractEndpoint.java:990) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.coyote.AbstractProtocol.start(AbstractProtocol.java:635) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:1022) ~[tomcat-embed-core-8.5.23.jar:8.5.23]
+	... 14 common frames omitted
+
+2018-01-11 21:58:03.051  INFO 269208 --- [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2018-01-11 21:58:03.061  INFO 269208 --- [main] utoConfigurationReportLoggingInitializer : 
+
+Error starting ApplicationContext. To display the auto-configuration report re-run your application with 'debug' enabled.
+2018-01-11 21:58:03.065 ERROR 269208 --- [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The Tomcat connector configured to listen on port 8090 failed to start. The port may already be in use or the connector may be misconfigured.
+
+Action:
+
+Verify the connector's configuration, identify and stop any process that's listening on port 8090, or configure this application to listen on another port.
+
+2018-01-11 21:58:03.066  INFO 269208 --- [main] ationConfigEmbeddedWebApplicationContext : Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@7d68ef40: startup date [Thu Jan 11 21:57:52 IST 2018]; root of context hierarchy
+2018-01-11 21:58:03.067  INFO 269208 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown
+2018-01-11 21:58:39.126  INFO 91316 --- [main] com.ApplicationController                : Starting ApplicationController on IN-8L1DXF2 with PID 91316 (E:\workspace\KiteSeleniumRxJava\KiteSeleniumRxJava\target\classes started by amit.a.kumar in E:\workspace\KiteSeleniumRxJava\KiteSeleniumRxJava)
+2018-01-11 21:58:39.128  INFO 91316 --- [main] com.ApplicationController                : No active profile set, falling back to default profiles: default
+2018-01-11 21:58:39.168  INFO 91316 --- [main] ationConfigEmbeddedWebApplicationContext : Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@7d68ef40: startup date [Thu Jan 11 21:58:39 IST 2018]; root of context hierarchy
+2018-01-11 21:58:43.432  INFO 91316 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat initialized with port(s): 8090 (http)
+2018-01-11 21:58:43.442  INFO 91316 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2018-01-11 21:58:43.443  INFO 91316 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.23
+2018-01-11 21:58:43.584  INFO 91316 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2018-01-11 21:58:43.585  INFO 91316 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 4420 ms
+2018-01-11 21:58:43.719  INFO 91316 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2018-01-11 21:58:43.722  INFO 91316 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2018-01-11 21:58:43.722  INFO 91316 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2018-01-11 21:58:43.723  INFO 91316 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2018-01-11 21:58:43.723  INFO 91316 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2018-01-11 21:58:44.345  INFO 91316 --- [main] org.mongodb.driver.cluster               : Cluster created with settings {hosts=[localhost:27017], mode=SINGLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+2018-01-11 21:58:44.408  INFO 91316 --- [cluster-ClusterId{value='5a5790bc42cf4a64b49844ea', description='null'}-localhost:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:1, serverValue:19}] to localhost:27017
+2018-01-11 21:58:44.410  INFO 91316 --- [cluster-ClusterId{value='5a5790bc42cf4a64b49844ea', description='null'}-localhost:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 6, 0]}, minWireVersion=0, maxWireVersion=6, maxDocumentSize=16777216, roundTripTimeNanos=806514}
+2018-01-11 21:58:49.406  INFO 91316 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@7d68ef40: startup date [Thu Jan 11 21:58:39 IST 2018]; root of context hierarchy
+2018-01-11 21:58:49.455  INFO 91316 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/data/{stockName}]}" onto public com.Stock com.DataController.greeting(java.lang.String)
+2018-01-11 21:58:49.458  INFO 91316 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2018-01-11 21:58:49.459  INFO 91316 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-01-11 21:58:49.480  INFO 91316 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-01-11 21:58:49.480  INFO 91316 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-01-11 21:58:49.511  INFO 91316 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-01-11 21:58:49.628  INFO 91316 --- [main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2018-01-11 21:58:49.683  INFO 91316 --- [main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat started on port(s): 8090 (http)
+2018-01-11 21:58:49.718  INFO 91316 --- [main] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:2, serverValue:20}] to localhost:27017
+2018-01-11 21:59:54.711  INFO 91316 --- [RxComputationThreadPool-8] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:5, serverValue:21}] to localhost:27017
+2018-01-11 21:59:54.713  INFO 91316 --- [RxComputationThreadPool-6] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:4, serverValue:22}] to localhost:27017
+2018-01-11 21:59:54.715  INFO 91316 --- [RxComputationThreadPool-1] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:6, serverValue:23}] to localhost:27017
+2018-01-11 21:59:54.716  INFO 91316 --- [RxComputationThreadPool-7] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:7, serverValue:24}] to localhost:27017
+2018-01-11 21:59:54.718  INFO 91316 --- [RxComputationThreadPool-3] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:9, serverValue:25}] to localhost:27017
+2018-01-11 21:59:54.721  INFO 91316 --- [RxComputationThreadPool-2] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:8, serverValue:26}] to localhost:27017
+2018-01-11 21:59:54.722  INFO 91316 --- [RxComputationThreadPool-5] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:3, serverValue:27}] to localhost:27017
+2018-01-11 22:03:55.675 ERROR 91316 --- [Thread-5] com.EventExecutor                        : Timed out after 3 seconds waiting for presence of element located by: By.cssSelector: div#view div.pending-orders.block.table-wrapper > h1 > span.count.ng-binding.ng-scope
+Build info: version: '2.53.1', revision: 'a36b8b1cd5757287168e54b817830adce9b0158d', time: '2016-06-30 19:26:09'
+System info: host: 'IN-8L1DXF2', ip: '192.168.1.5', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_151'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities [{applicationCacheEnabled=false, rotatable=false, mobileEmulationEnabled=false, networkConnectionEnabled=false, chrome={chromedriverVersion=2.33.506120 (e3e53437346286c0bc2d2dc9aa4915ba81d9023f), userDataDir=C:\Users\AMITA~1.KUM\AppData\Local\Temp\scoped_dir95184_32024}, takesHeapSnapshot=true, pageLoadStrategy=normal, databaseEnabled=false, handlesAlerts=true, hasTouchScreen=false, version=63.0.3239.132, platform=XP, browserConnectionEnabled=false, nativeEvents=true, acceptSslCerts=true, locationContextEnabled=true, webStorageEnabled=true, browserName=chrome, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true, setWindowRect=true, unexpectedAlertBehaviour=}]
+Session ID: 7da71f218fd9d9ff7ea47c1aabb11c1d
+2018-01-11 22:08:55.728 ERROR 91316 --- [Thread-5] com.EventExecutor                        : Timed out after 3 seconds waiting for presence of element located by: By.cssSelector: div#view div.pending-orders.block.table-wrapper > h1 > span.count.ng-binding.ng-scope
+Build info: version: '2.53.1', revision: 'a36b8b1cd5757287168e54b817830adce9b0158d', time: '2016-06-30 19:26:09'
+System info: host: 'IN-8L1DXF2', ip: '192.168.1.5', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_151'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities [{applicationCacheEnabled=false, rotatable=false, mobileEmulationEnabled=false, networkConnectionEnabled=false, chrome={chromedriverVersion=2.33.506120 (e3e53437346286c0bc2d2dc9aa4915ba81d9023f), userDataDir=C:\Users\AMITA~1.KUM\AppData\Local\Temp\scoped_dir95184_32024}, takesHeapSnapshot=true, pageLoadStrategy=normal, databaseEnabled=false, handlesAlerts=true, hasTouchScreen=false, version=63.0.3239.132, platform=XP, browserConnectionEnabled=false, nativeEvents=true, acceptSslCerts=true, locationContextEnabled=true, webStorageEnabled=true, browserName=chrome, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true, setWindowRect=true, unexpectedAlertBehaviour=}]
+Session ID: 7da71f218fd9d9ff7ea47c1aabb11c1d

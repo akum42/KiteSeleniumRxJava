@@ -154,7 +154,7 @@ public class WebAction {
                 + ") > td.action-buttons-container > div > button.btn.btn-red.btn-outline.ng-scope");
         sleep(10);
         clickfocusOnElement("div#ngdialog1 button[type=\"button\"].confirm.btn.btn-red");
-
+        sleep(1000);
       } catch (Exception e) {
         logger.error(e.getMessage());
       }

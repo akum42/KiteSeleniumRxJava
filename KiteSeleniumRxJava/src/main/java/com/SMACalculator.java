@@ -53,7 +53,7 @@ public class SMACalculator {
                                   ? repository.findByStockName(stockName)
                                   : new Stock();
                           stock.setStockName(stockName);
-                          stock.getFiveMinuteAverage().put(getTimeRange(), d);
+                          stock.getFiveMinuteAverage().put(getTimeRange(), formatDouble(d));
                           repository.save(stock);
                         }));
   }
@@ -70,6 +70,14 @@ public class SMACalculator {
                               l.stream().mapToDouble(e -> e.getValue()).average().getAsDouble();
                           sma_fast.onNext(
                               new Pair<String, Double>(l.get(0).getKey(), formatDouble(d)));
+                          String stockName = l.get(0).getKey();
+                          Stock stock =
+                              repository.findByStockName(stockName) != null
+                                  ? repository.findByStockName(stockName)
+                                  : new Stock();
+                          stock.setStockName(stockName);
+                          stock.getFastMovingAverage().put(getTimeRange(), formatDouble(d));
+                          repository.save(stock);
                         }));
   }
 
@@ -109,7 +117,7 @@ public class SMACalculator {
                                   ? repository.findByStockName(stockName)
                                   : new Stock();
                           stock.setStockName(stockName);
-                          stock.getMinuteAverage().put(getTimeRange(), d);
+                          stock.getMinuteAverage().put(getTimeRange(), formatDouble(d));
                           repository.save(stock);
                         }));
   }
@@ -126,6 +134,14 @@ public class SMACalculator {
                               l.stream().mapToDouble(e -> e.getValue()).average().getAsDouble();
                           sma_slow.onNext(
                               new Pair<String, Double>(l.get(0).getKey(), formatDouble(d)));
+                          String stockName = l.get(0).getKey();
+                          Stock stock =
+                              repository.findByStockName(stockName) != null
+                                  ? repository.findByStockName(stockName)
+                                  : new Stock();
+                          stock.setStockName(stockName);
+                          stock.getSlowMovingAverage().put(getTimeRange(), formatDouble(d));
+                          repository.save(stock);
                         }));
   }
 

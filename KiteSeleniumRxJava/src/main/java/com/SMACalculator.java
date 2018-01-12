@@ -35,6 +35,13 @@ public class SMACalculator {
     stockSMAFastPair = new ConcurrentHashMap<>();
   }
 
+  public void complete() {
+    sma_1_min.onComplete();
+    sma_5_min.onComplete();
+    sma_slow.onComplete();
+    sma_fast.onComplete();
+  }
+
   private void calcSMA5Minute() {
     sma_1_min
         .groupBy(Pair::getKey)

@@ -15,7 +15,7 @@ public class CleanOrders {
             () -> {
               eventExecutor
                   .getQueue()
-                  .add(new StockMessage(Integer.MIN_VALUE, "ClearAllOrders", null));
+                  .add(new StockMessage(Integer.MAX_VALUE, "ClearAllOrders", null));
             })
         .start();
   }
@@ -28,7 +28,7 @@ public class CleanOrders {
                 sleep(1000 * 60 * 5);
                 eventExecutor
                     .getQueue()
-                    .add(new StockMessage(Integer.MIN_VALUE, "ClearOldOrders", null));
+                    .add(new StockMessage(Integer.MAX_VALUE, "ClearOldOrders", null));
               }
             })
         .start();

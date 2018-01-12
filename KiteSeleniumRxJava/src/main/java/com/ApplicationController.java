@@ -63,17 +63,17 @@ public class ApplicationController implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
-    //loadData();
+    loadData();
 
     if (isMarketOpen()) {
       if (canOrder()) {
         webAction.login(args[0], args[1], args[2], args[3]);
 
         eventExecutor.startExecution();
-       
+
         new Thread(
                 () -> {
-                  while (true) {
+                  while (canOrder()) {
                     for (int i = 2; i <= 6; i++) {
                       eventExecutor
                           .getQueue()
@@ -104,6 +104,8 @@ public class ApplicationController implements CommandLineRunner {
       while (true) {
         if (canOrder()) sleep(1000 * 60 * 2);
         else {
+          smaCalculator.complete();
+          eventExecutor.clearQueue();
           logger.info("Clear All Orders");
           cleanOrders.clearAllOrders();
         }

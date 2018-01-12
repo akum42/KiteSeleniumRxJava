@@ -34,6 +34,10 @@ public class EventExecutor {
     position = new HashMap<>();
   }
 
+  public void clearQueue() {
+    queue.clear();
+  }
+
   public Map<String, String> getPosition() {
     return position;
   }

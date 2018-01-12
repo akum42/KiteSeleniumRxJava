@@ -63,12 +63,14 @@ public class ApplicationController implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
-    loadData();
+    //loadData();
 
     if (isMarketOpen()) {
       if (canOrder()) {
         webAction.login(args[0], args[1], args[2], args[3]);
 
+        eventExecutor.startExecution();
+       
         new Thread(
                 () -> {
                   while (true) {
@@ -107,7 +109,7 @@ public class ApplicationController implements CommandLineRunner {
         }
         if (!isMarketOpen()) {
           webAction.logout();
-          //System.exit(0);
+          System.exit(0);
         }
         sleep(1000 * 60 * 2);
       }

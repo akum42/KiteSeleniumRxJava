@@ -1,5 +1,6 @@
 package com;
 
+import static com.Util.canOrder;
 import static com.Util.sleep;
 
 import java.util.Map;
@@ -54,7 +55,8 @@ public class DecisionMaker {
                                       new Pair<Pair<Double, Double>, Pair<Double, Double>>(i1, i2))
                               .subscribe(
                                   l -> {
-                                    if (getResult(l.getKey(), l.getValue()) == 1
+                                    if (canOrder()
+                                        && getResult(l.getKey(), l.getValue()) == 1
                                         && !eventExecutor
                                             .getPosition()
                                             .getOrDefault(k.getKey(), "")
@@ -69,7 +71,8 @@ public class DecisionMaker {
                                                   new Pair<String, String>(
                                                       k.getKey(),
                                                       l.getValue().getValue().toString())));
-                                    } else if (getResult(l.getKey(), l.getValue()) == -1
+                                    } else if (canOrder()
+                                        && getResult(l.getKey(), l.getValue()) == -1
                                         && !eventExecutor
                                             .getPosition()
                                             .getOrDefault(k.getKey(), "")

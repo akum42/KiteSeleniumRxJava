@@ -4,7 +4,6 @@ import static com.Util.canOrder;
 import static com.Util.isMarketOpen;
 import static com.Util.sleep;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -65,64 +64,52 @@ public class ApplicationController implements CommandLineRunner {
   public void run(String... args) throws Exception {
     loadData();
 
-    if (isMarketOpen()) {
-      if (canOrder()) {
-        webAction.login(args[0], args[1], args[2], args[3]);
+    while (isMarketOpen()) sleep(1000 * 60 * 2);
+    
+    webAction.login(args[0], args[1], args[2], args[3]);
+    eventExecutor.startExecution();
 
-        eventExecutor.startExecution();
+    new Thread(
+            () -> {
+              while (isMarketOpen()) {
+                for (int i = 2; i <= 6; i++) {
+                  eventExecutor
+                      .getQueue()
+                      .add(
+                          new StockMessage(
+                              0, "ClickMarketWatch", new Pair<String, String>("", "" + i)));
+                  sleep(3000);
+                }
+              }
+            })
+        .start();
 
-        new Thread(
-                () -> {
-                  while (canOrder()) {
-                    for (int i = 2; i <= 6; i++) {
-                      eventExecutor
-                          .getQueue()
-                          .add(
-                              new StockMessage(
-                                  0, "ClickMarketWatch", new Pair<String, String>("", "" + i)));
-                      sleep(3000);
-                    }
-                  }
-                })
-            .start();
-
-        eventExecutor.startExecution();
-        smaCalculator.startCalculation(eventExecutor.getResult());
-        if (Boolean.parseBoolean(args[4])) {
-          decisionMaker.startTakingDecision(
-              smaCalculator.getStockSMASlowPair().entrySet(),
-              smaCalculator.getStockSMAFastPair().entrySet());
-          cleanOrders.clearOldOrders();
-        }
-
-        new Thread(
-                () -> {
-                  webAction.readPostion();
-                })
-            .start();
-      }
-      while (true) {
-        if (canOrder()) sleep(1000 * 60 * 2);
-        else {
-          smaCalculator.complete();
-          eventExecutor.clearQueue();
-          logger.info("Clear All Orders");
-          cleanOrders.clearAllOrders();
-        }
-        if (!isMarketOpen()) {
-          webAction.logout();
-          System.exit(0);
-        }
-        sleep(1000 * 60 * 2);
-      }
+    smaCalculator.startCalculation(eventExecutor.getResult());
+    if (Boolean.parseBoolean(args[4])) {
+      decisionMaker.startTakingDecision(
+          smaCalculator.getStockSMASlowPair().entrySet(),
+          smaCalculator.getStockSMAFastPair().entrySet());
+      cleanOrders.clearOldOrders();
     }
-  }
-}
 
-class StockMessageComparator implements Comparator<StockMessage> {
-
-  @Override
-  public int compare(StockMessage o1, StockMessage o2) {
-    return o1.getPriority() - o2.getPriority();
+    new Thread(
+            () -> {
+              webAction.readPostion();
+            })
+        .start();
+    while (true) {
+      if (canOrder()) sleep(1000 * 60 * 2);
+      else {
+        //smaCalculator.complete();
+        //eventExecutor.clearQueue();
+        logger.info("Clear All Orders");
+        cleanOrders.clearAllOrders();
+      }
+      if (!isMarketOpen()) {
+        webAction.logout();
+        System.exit(0);
+      }
+      sleep(1000 * 60 * 2);
+    }
   }
 }

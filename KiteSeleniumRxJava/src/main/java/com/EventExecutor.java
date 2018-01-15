@@ -2,6 +2,7 @@ package com;
 
 import static com.Util.canOrder;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +30,7 @@ public class EventExecutor {
   private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
   public EventExecutor() {
-    queue = new PriorityBlockingQueue<>(10, new StockMessageComparator());
+    queue = new PriorityBlockingQueue<>(10, Comparator.comparing(StockMessage::getPriority));
     result = BehaviorSubject.create();
     position = new HashMap<>();
   }
@@ -57,7 +58,11 @@ public class EventExecutor {
   private String getTarget(String price) {
     return "" + Math.round(Double.parseDouble(price) * target * 10.0) / 10.0;
   }
-
+  
+  private String getQuantity(String price) {
+	  return "" + (int)(2000/Double.parseDouble(price));
+  }
+  
   public void startExecution() {
 
     new Thread(
@@ -79,26 +84,22 @@ public class EventExecutor {
                       String buyPrice = message.getPair().getValue();
                       String buyName = message.getPair().getKey();
                       String i = StockLocation.getPosition(buyName);
-                      String buyTarget = this.getTarget(buyPrice);
-                      String buyStopLoss = this.getStopLoss(buyPrice);
                       webAction.clickMarketWatch(StockLocation.getMarketWatch(buyName));
-                      if (Double.parseDouble(buyPrice) < 2000d && canOrder())
-                        webAction.buySellBO(i, "1", buyPrice, buyTarget, buyStopLoss, "1", true);
-                      logger.info("BUY " + buyName + " " + buyPrice);
                       getPosition().put(buyName, "BUY");
+                      if (Double.parseDouble(buyPrice) < 2000d && Double.parseDouble(buyPrice) >50d && canOrder())
+                        webAction.buySellBO(i, getQuantity(buyPrice), buyPrice, getTarget(buyPrice), getStopLoss(buyPrice), "1", true);
+                      logger.info("BUY " + buyName + " " + buyPrice);
                       break;
                     case "SELL":
                       String sellPrice = message.getPair().getValue();
                       String sellName = message.getPair().getKey();
                       String j = StockLocation.getPosition(sellName);
-                      String sellTarget = getTarget(sellPrice);
-                      String sellStopLoss = getStopLoss(sellPrice);
                       webAction.clickMarketWatch(StockLocation.getMarketWatch(sellName));
-                      if (Double.parseDouble(sellPrice) < 2000d && canOrder())
-                        webAction.buySellBO(
-                            j, "1", sellPrice, sellTarget, sellStopLoss, "1", false);
-                      logger.info("SELL " + sellName + " " + sellPrice);
                       getPosition().put(sellName, "SELL");
+                      if (Double.parseDouble(sellPrice) < 2000d && Double.parseDouble(sellPrice) >50d && canOrder())
+                        webAction.buySellBO(
+                            j, getQuantity(sellPrice), sellPrice,  getTarget(sellPrice), getStopLoss(sellPrice), "1", false);
+                      logger.info("SELL " + sellName + " " + sellPrice);
                       break;
                     case "ClearOldOrders":
                       String orderNumber = webAction.getAllOpenOrders();
